@@ -603,12 +603,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .product-stage-inner img {
   width: 121px;
   height: 121px;
   object-fit: contain;
+  border-radius: inherit;
 }
 
 .product-name {
@@ -741,12 +743,14 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-soft);
+  overflow: hidden;
 }
 
 .quote-image-inner img {
   width: 90px;
   height: 90px;
   object-fit: contain;
+  border-radius: inherit;
 }
 
 .quote-main {

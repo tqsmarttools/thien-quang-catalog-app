@@ -427,8 +427,8 @@ body {
 }
 
 .home-group-stage {
-  width: 130px;
-  height: 130px;
+  width: 142px;
+  height: 142px;
   border-radius: 10px;
   background: var(--bg-image-zone);
   margin: 0 auto;
@@ -438,8 +438,8 @@ body {
 }
 
 .home-group-stage-inner {
-  width: 100%;
-  height: 100%;
+  width: 120px;
+  height: 120px;
   border-radius: 9px;
   background: white;
   box-shadow: var(--shadow-soft);
@@ -449,8 +449,8 @@ body {
 }
 
 .home-group-stage-inner img {
-  width: 104px;
-  height: 104px;
+  width: 116px;
+  height: 116px;
   object-fit: contain;
 }
 

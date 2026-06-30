@@ -281,8 +281,8 @@ body {
 }
 
 .hero-stage-inner {
-  width: 108px;
-  height: 108px;
+  width: 146px;
+  height: 136px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: inset 0 0 0 1px rgba(222, 227, 220, 0.8);
@@ -292,8 +292,8 @@ body {
 }
 
 .hero-stage-inner img {
-  width: 90px;
-  height: 90px;
+  width: 136px;
+  height: 126px;
   object-fit: contain;
 }
 
@@ -381,8 +381,8 @@ body {
 }
 
 .category-icon {
-  width: 40px;
-  height: 40px;
+  width: 52px;
+  height: 52px;
   border-radius: 8px;
   background: white;
   box-shadow: var(--shadow-soft);
@@ -593,8 +593,8 @@ body {
 }
 
 .product-stage-inner {
-  width: 107px;
-  height: 107px;
+  width: 129px;
+  height: 129px;
   border-radius: 8px;
   background: white;
   box-shadow: var(--shadow-soft);
@@ -604,8 +604,8 @@ body {
 }
 
 .product-stage-inner img {
-  width: 88px;
-  height: 88px;
+  width: 121px;
+  height: 121px;
   object-fit: contain;
 }
 
@@ -731,8 +731,8 @@ body {
 }
 
 .quote-image-inner {
-  width: 78px;
-  height: 78px;
+  width: 96px;
+  height: 96px;
   border-radius: 8px;
   background: white;
   display: flex;
@@ -742,8 +742,8 @@ body {
 }
 
 .quote-image-inner img {
-  width: 68px;
-  height: 68px;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
 }
 

@@ -446,12 +446,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .home-group-stage-inner img {
   width: 142px;
   height: 142px;
   object-fit: contain;
+  border-radius: inherit;
 }
 
 .home-group-title {

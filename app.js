@@ -12,12 +12,25 @@
   const state = loadState();
   const root = document.getElementById("screen-root");
 
+  function getScreenFromHash() {
+    const hash = window.location.hash.replace(/^#/, "");
+    if (hash === "product-list" || hash === "quote-list") return hash;
+    return "home";
+  }
+
+  function syncHash(screen) {
+    const target = screen === "home" ? "#home" : `#${screen}`;
+    if (window.location.hash !== target) {
+      history.replaceState(null, "", target);
+    }
+  }
+
   function loadState() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         return {
-          currentScreen: "home",
+          currentScreen: getScreenFromHash(),
           selectedCategory: "xay-to",
           selectedGroup: "bay-xay-dung",
           activeFilter: "all",
@@ -156,6 +169,7 @@
   function setScreen(screen) {
     state.currentScreen = screen;
     saveState();
+    syncHash(screen);
     render();
   }
 
@@ -164,6 +178,7 @@
     state.selectedGroup = groupId;
     state.currentScreen = "product-list";
     saveState();
+    syncHash("product-list");
     render();
   }
 
@@ -567,6 +582,7 @@
 
   function render() {
     if (!root) return;
+    syncHash(state.currentScreen);
     if (state.currentScreen === "home") {
       root.innerHTML = renderHome();
     } else if (state.currentScreen === "product-list") {
@@ -654,6 +670,15 @@
       });
     }
   }
+
+  window.addEventListener("hashchange", () => {
+    const next = getScreenFromHash();
+    if (next !== state.currentScreen) {
+      state.currentScreen = next;
+      saveState();
+      render();
+    }
+  });
 
   render();
 })();

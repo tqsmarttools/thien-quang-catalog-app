@@ -7,11 +7,11 @@ window.CATALOG_ASSETS = {
     thachCao: "public/assets/ban-keo-ho-60.png"
   },
   products: {
-    bayXayDungPrimary: "public/assets/bay-thep-20.png",
+    bayXayDungPrimary: "public/assets/home-bay-xay-dung.jpg",
     bayInox20A: "public/assets/bay-inox-22-a.png",
     bayInox22A: "public/assets/bay-inox-22-a.png",
     bayThep20: "public/assets/bay-thep-20.png",
-    keCanBang: "public/assets/ke-can-bang.png",
+    keCanBang: "public/assets/home-ke-can-bang.jpg",
     banKeoHo60: "public/assets/ban-keo-ho-60.png"
   },
   icons: {

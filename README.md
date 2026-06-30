@@ -22,11 +22,23 @@ This app is static, so it can be deployed quickly on either:
 
 - Vercel
 - Netlify
+- GitHub Pages
 
 Included config:
 
 - `vercel.json`
 - `netlify.toml`
+- `.github/workflows/deploy-pages.yml`
+
+## GitHub Pages
+
+This repository is prepared for GitHub Pages deployment through GitHub Actions.
+
+After the workflow runs successfully, the preview URL should follow this shape:
+
+```text
+https://tqsmarttools.github.io/thien-quang-catalog-app/
+```
 
 ## Included flows
 

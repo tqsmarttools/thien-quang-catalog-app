@@ -71,6 +71,30 @@ body {
   animation: fade-in 180ms ease-out;
 }
 
+.loading-page {
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.loading-dot {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 3px solid rgba(20, 92, 78, 0.15);
+  border-top-color: var(--brand-green);
+  animation: spin 0.9s linear infinite;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0.0;
@@ -79,6 +103,15 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 

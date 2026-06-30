@@ -9,6 +9,7 @@
   const ASSETS = window.CATALOG_ASSETS;
   const STORAGE = window.CATALOG_STORAGE;
   const SERVICE = window.CATALOG_SERVICE;
+  const API = window.CATALOG_API;
   const MESSAGE_TEMPLATE = window.CATALOG_MESSAGE_TEMPLATE;
   const INITIAL_STATE = {
     currentScreen: "home",
@@ -18,6 +19,7 @@
     draftFilter: "all",
     isFilterOpen: false,
     isPreviewOpen: false,
+    isLoading: false,
     note: "",
     quote: {}
   };
@@ -115,20 +117,20 @@
     render();
   }
 
-  function setScreen(screen) {
+  async function setScreen(screen) {
     state.currentScreen = screen;
     saveState();
     syncHash(screen);
-    render();
+    await render();
   }
 
-  function openProductList(categoryId, groupId) {
+  async function openProductList(categoryId, groupId) {
     state.selectedCategory = categoryId;
     state.selectedGroup = groupId;
     state.currentScreen = "product-list";
     saveState();
     syncHash("product-list");
-    render();
+    await render();
   }
 
   function openFilter() {
@@ -186,7 +188,8 @@
     `;
   }
 
-  function renderHome() {
+  async function renderHome() {
+    const homeData = await API.getHomeData(window.CATALOG_DATA);
     return `
       <div class="page home-page">
         ${renderHeaderStatus()}
@@ -226,7 +229,7 @@
             <h2>Danh mục sản phẩm</h2>
           </div>
           <div class="category-row">
-            ${categories
+            ${homeData.categories
               .map(
                 (category, index) => `
                   <button class="category-card ${index === 0 ? "active" : ""}" type="button" data-category="${category.id}">
@@ -249,7 +252,7 @@
             <button class="section-action" type="button">Xem tất cả ›</button>
           </div>
           <div class="home-group-grid">
-            ${productGroups
+            ${homeData.productGroups
               .map(
                 (group) => `
                   <button class="home-group-card" type="button" data-group="${group.id}">
@@ -275,8 +278,13 @@
     `;
   }
 
-  function renderProductList() {
-    const grid = filteredProducts();
+  async function renderProductList() {
+    const listData = await API.getProductListData(window.CATALOG_DATA, SERVICE, {
+      selectedCategory: state.selectedCategory,
+      selectedGroup: state.selectedGroup,
+      activeFilter: state.activeFilter
+    });
+    const grid = listData.products;
     return `
       <div class="page product-list-page">
         ${renderHeaderStatus()}
@@ -287,7 +295,7 @@
             </button>
             <div>
               <div class="page-header-title">Bay xây dựng</div>
-              <div class="page-header-subtitle">${state.activeFilter === "all" ? "42 sản phẩm" : `${grid.length} sản phẩm phù hợp`}</div>
+              <div class="page-header-subtitle">${listData.totalCountLabel}</div>
             </div>
           </div>
           <div class="header-actions">
@@ -301,7 +309,7 @@
           <div class="applied-filter-bar">
             <span class="applied-filter-label">Đang lọc:</span>
             <button class="applied-filter-chip" type="button" data-action="clear-filter">
-              <span>${currentFilterLabel()}</span>
+              <span>${listData.activeFilterLabel}</span>
               <span>✕</span>
             </button>
           </div>
@@ -376,8 +384,9 @@
     `;
   }
 
-  function renderQuoteList() {
-    const entries = quoteEntries();
+  async function renderQuoteList() {
+    const quoteData = await API.getQuoteData(window.CATALOG_DATA, SERVICE, state);
+    const entries = quoteData.entries;
     return `
       <div class="page quote-page">
         ${renderHeaderStatus()}
@@ -388,7 +397,7 @@
             </button>
             <div>
               <div class="page-header-title">Danh sách báo giá</div>
-              <div class="page-header-subtitle">${totalQuoteItems()} sản phẩm</div>
+              <div class="page-header-subtitle">${quoteData.totalItems} sản phẩm</div>
             </div>
           </div>
         </div>
@@ -397,7 +406,7 @@
           ${entries.length ? renderQuoteRows(entries) : renderQuoteEmptyState()}
         </div>
 
-        ${entries.length ? renderSummaryCard() : ""}
+        ${entries.length ? renderSummaryCard(quoteData.totalItems, quoteData.totalPrice) : ""}
         ${renderBottomNav("quotes")}
         ${renderQuotePreviewSheet()}
       </div>
@@ -459,17 +468,17 @@
     `;
   }
 
-  function renderSummaryCard() {
+  function renderSummaryCard(totalItems, totalPrice) {
     return `
       <section class="summary-card">
           <div class="summary-top">
             <div>
               <div class="summary-title">Tổng cộng</div>
-              <div class="summary-count">${totalQuoteItems()} sản phẩm</div>
+              <div class="summary-count">${totalItems} sản phẩm</div>
             </div>
             <div class="summary-right">
               <div class="summary-subtotal-label">Tạm tính (tham khảo)</div>
-              <div class="summary-total">${SERVICE.formatPrice(totalQuotePrice())}</div>
+              <div class="summary-total">${SERVICE.formatPrice(totalPrice)}</div>
             </div>
           </div>
           <div class="cta-stack">
@@ -529,26 +538,29 @@
     `;
   }
 
-  function render() {
+  async function render() {
     if (!root) return;
     syncHash(state.currentScreen);
+    state.isLoading = true;
+    root.innerHTML = `<div class="page loading-page"><div class="loading-shell"><div class="loading-dot"></div><p>Đang tải giao diện...</p></div></div>`;
     if (state.currentScreen === "home") {
-      root.innerHTML = renderHome();
+      root.innerHTML = await renderHome();
     } else if (state.currentScreen === "product-list") {
-      root.innerHTML = renderProductList();
+      root.innerHTML = await renderProductList();
     } else {
-      root.innerHTML = renderQuoteList();
+      root.innerHTML = await renderQuoteList();
     }
+    state.isLoading = false;
     bindEvents();
   }
 
   function bindEvents() {
     root.querySelectorAll("[data-category]").forEach((button) => {
-      button.addEventListener("click", () => openProductList(button.dataset.category, "bay-xay-dung"));
+      button.addEventListener("click", () => void openProductList(button.dataset.category, "bay-xay-dung"));
     });
 
     root.querySelectorAll("[data-group]").forEach((button) => {
-      button.addEventListener("click", () => openProductList("xay-to", button.dataset.group));
+      button.addEventListener("click", () => void openProductList("xay-to", button.dataset.group));
     });
 
     root.querySelectorAll("[data-toggle-product]").forEach((button) => {
@@ -570,16 +582,16 @@
     root.querySelectorAll("[data-nav]").forEach((button) => {
       button.addEventListener("click", () => {
         const target = button.dataset.nav;
-        if (target === "home") setScreen("home");
-        if (target === "quotes") setScreen("quote-list");
+        if (target === "home") void setScreen("home");
+        if (target === "quotes") void setScreen("quote-list");
       });
     });
 
     root.querySelectorAll("[data-action]").forEach((button) => {
       button.addEventListener("click", () => {
         const action = button.dataset.action;
-        if (action === "back-home") setScreen("home");
-        if (action === "back-products") setScreen("product-list");
+        if (action === "back-home") void setScreen("home");
+        if (action === "back-products") void setScreen("product-list");
         if (action === "open-filter") openFilter();
         if (action === "close-filter") closeFilter();
         if (action === "apply-filter") applyFilter();
@@ -625,9 +637,9 @@
     if (next !== state.currentScreen) {
       state.currentScreen = next;
       saveState();
-      render();
+      void render();
     }
   });
 
-  render();
+  void render();
 })();

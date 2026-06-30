@@ -7,9 +7,21 @@
     filterOptions
   } = window.CATALOG_DATA;
   const ASSETS = window.CATALOG_ASSETS;
+  const STORAGE = window.CATALOG_STORAGE;
+  const SERVICE = window.CATALOG_SERVICE;
   const MESSAGE_TEMPLATE = window.CATALOG_MESSAGE_TEMPLATE;
-
-  const state = loadState();
+  const INITIAL_STATE = {
+    currentScreen: "home",
+    selectedCategory: "xay-to",
+    selectedGroup: "bay-xay-dung",
+    activeFilter: "all",
+    draftFilter: "all",
+    isFilterOpen: false,
+    isPreviewOpen: false,
+    note: "",
+    quote: {}
+  };
+  const state = STORAGE.load(STORAGE_KEY, INITIAL_STATE, getScreenFromHash);
   const root = document.getElementById("screen-root");
 
   function getScreenFromHash() {
@@ -25,75 +37,20 @@
     }
   }
 
-  function loadState() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        return {
-          currentScreen: getScreenFromHash(),
-          selectedCategory: "xay-to",
-          selectedGroup: "bay-xay-dung",
-          activeFilter: "all",
-          draftFilter: "all",
-          isFilterOpen: false,
-          isPreviewOpen: false,
-          note: "",
-          quote: {},
-          ...JSON.parse(raw)
-        };
-      }
-    } catch (error) {
-      console.warn("Failed to load catalog state", error);
-    }
-    return {
-      currentScreen: "home",
-      selectedCategory: "xay-to",
-      selectedGroup: "bay-xay-dung",
-      activeFilter: "all",
-      draftFilter: "all",
-      isFilterOpen: false,
-      isPreviewOpen: false,
-      note: "",
-      quote: {}
-    };
-  }
-
   function saveState() {
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({
-        currentScreen: state.currentScreen,
-        selectedCategory: state.selectedCategory,
-        selectedGroup: state.selectedGroup,
-        activeFilter: state.activeFilter,
-        draftFilter: state.draftFilter,
-        isFilterOpen: state.isFilterOpen,
-        isPreviewOpen: false,
-        note: state.note,
-        quote: state.quote
-      })
-    );
-  }
-
-  function formatPrice(value) {
-    return `${new Intl.NumberFormat("vi-VN").format(value)}đ`;
+    STORAGE.save(STORAGE_KEY, state);
   }
 
   function quoteEntries() {
-    return Object.entries(state.quote)
-      .map(([id, qty]) => {
-        const product = products.find((item) => item.id === id);
-        return product && qty > 0 ? { product, qty } : null;
-      })
-      .filter(Boolean);
+    return SERVICE.quoteEntries(products, state.quote);
   }
 
   function totalQuoteItems() {
-    return quoteEntries().reduce((sum, entry) => sum + entry.qty, 0);
+    return SERVICE.totalQuoteItems(quoteEntries());
   }
 
   function totalQuotePrice() {
-    return quoteEntries().reduce((sum, entry) => sum + entry.product.price * entry.qty, 0);
+    return SERVICE.totalQuotePrice(quoteEntries());
   }
 
   function isAdded(productId) {
@@ -126,29 +83,21 @@
   }
 
   function filteredProducts() {
-    return products
-      .filter((product) => {
-        const categoryMatch = product.category === state.selectedCategory;
-        const groupMatch = product.group === state.selectedGroup;
-        const filterMatch = state.activeFilter === "all" ? true : product.subtype === state.activeFilter;
-        return categoryMatch && groupMatch && filterMatch;
-      })
-      .slice(0, 6);
+    return SERVICE.filteredProducts(products, state.selectedCategory, state.selectedGroup, state.activeFilter);
   }
 
   function currentFilterLabel() {
-    const match = filterOptions.find((option) => option.id === state.activeFilter);
-    return match ? match.label : "Tất cả";
+    return SERVICE.currentFilterLabel(filterOptions, state.activeFilter);
   }
 
   function buildZaloMessage() {
-    return MESSAGE_TEMPLATE.build({
-      entries: quoteEntries(),
-      totalItems: totalQuoteItems(),
-      totalPrice: totalQuotePrice(),
-      note: state.note,
-      formatPrice
-    });
+    return SERVICE.buildZaloMessage(
+      MESSAGE_TEMPLATE,
+      quoteEntries(),
+      totalQuoteItems(),
+      totalQuotePrice(),
+      state.note
+    );
   }
 
   function openZaloQuote() {
@@ -371,7 +320,7 @@
                   <div class="product-name">${product.name}</div>
                   <div class="product-code">${product.code}</div>
                   <div class="product-meta">
-                    <div class="product-price">${formatPrice(product.price)}</div>
+                    <div class="product-price">${SERVICE.formatPrice(product.price)}</div>
                     <button class="add-btn ${isAdded(product.id) ? "added" : ""}" type="button" data-toggle-product="${product.id}">
                       <span class="icon-inline"><img src="${isAdded(product.id) ? ASSETS.icons.check : ASSETS.icons.plus}" alt="" /></span>
                       <span>Thêm</span>
@@ -469,10 +418,10 @@
               <div class="quote-title">${product.name}</div>
               <div class="quote-code">${product.code}</div>
               <div class="quote-price-row">
-                <div class="quote-price">${formatPrice(product.price)}</div>
+                <div class="quote-price">${SERVICE.formatPrice(product.price)}</div>
                 <div class="quote-total-col">
                   <div class="quote-total-label">Thành tiền</div>
-                  <div class="quote-total-value">${formatPrice(product.price * qty)}</div>
+                  <div class="quote-total-value">${SERVICE.formatPrice(product.price * qty)}</div>
                 </div>
               </div>
               <div class="quote-stepper-row">
@@ -520,7 +469,7 @@
             </div>
             <div class="summary-right">
               <div class="summary-subtotal-label">Tạm tính (tham khảo)</div>
-              <div class="summary-total">${formatPrice(totalQuotePrice())}</div>
+              <div class="summary-total">${SERVICE.formatPrice(totalQuotePrice())}</div>
             </div>
           </div>
           <div class="cta-stack">

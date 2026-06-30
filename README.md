@@ -16,6 +16,18 @@ Then open:
 http://127.0.0.1:4173/
 ```
 
+## Preview deploy
+
+This app is static, so it can be deployed quickly on either:
+
+- Vercel
+- Netlify
+
+Included config:
+
+- `vercel.json`
+- `netlify.toml`
+
 ## Included flows
 
 - `Screen 01` Home

@@ -490,6 +490,33 @@ body {
   gap: 8px;
 }
 
+.applied-filter-bar {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.applied-filter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.applied-filter-chip {
+  border: 1px solid rgba(20, 92, 78, 0.22);
+  background: rgba(20, 92, 78, 0.08);
+  color: var(--brand-green);
+  border-radius: 999px;
+  padding: 8px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .filter-btn {
   border: 1px solid #e2e8e0;
   border-radius: 21px;

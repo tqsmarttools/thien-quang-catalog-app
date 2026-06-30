@@ -123,6 +123,11 @@
       .slice(0, 6);
   }
 
+  function currentFilterLabel() {
+    const match = filterOptions.find((option) => option.id === state.activeFilter);
+    return match ? match.label : "Tất cả";
+  }
+
   function buildZaloMessage() {
     return MESSAGE_TEMPLATE.build({
       entries: quoteEntries(),
@@ -184,6 +189,13 @@
 
   function resetFilter() {
     state.draftFilter = "all";
+    render();
+  }
+
+  function clearAppliedFilter() {
+    state.activeFilter = "all";
+    state.draftFilter = "all";
+    saveState();
     render();
   }
 
@@ -311,7 +323,7 @@
             </button>
             <div>
               <div class="page-header-title">Bay xây dựng</div>
-              <div class="page-header-subtitle">42 sản phẩm</div>
+              <div class="page-header-subtitle">${state.activeFilter === "all" ? "42 sản phẩm" : `${grid.length} sản phẩm phù hợp`}</div>
             </div>
           </div>
           <div class="header-actions">
@@ -320,6 +332,16 @@
             </button>
           </div>
         </div>
+
+        ${state.activeFilter !== "all" ? `
+          <div class="applied-filter-bar">
+            <span class="applied-filter-label">Đang lọc:</span>
+            <button class="applied-filter-chip" type="button" data-action="clear-filter">
+              <span>${currentFilterLabel()}</span>
+              <span>✕</span>
+            </button>
+          </div>
+        ` : ""}
 
         <div class="product-grid">
           ${grid
@@ -597,6 +619,7 @@
         if (action === "close-filter") closeFilter();
         if (action === "apply-filter") applyFilter();
         if (action === "reset-filter") resetFilter();
+        if (action === "clear-filter") clearAppliedFilter();
         if (action === "preview-zalo") openQuotePreview();
         if (action === "close-preview") closeQuotePreview();
         if (action === "send-zalo-confirm") {

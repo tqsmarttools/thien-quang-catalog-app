@@ -169,6 +169,8 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  align-items: center;
+  text-align: center;
 }
 
 .brand-copy strong {

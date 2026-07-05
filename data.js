@@ -292,3 +292,55 @@ window.CATALOG_DATA = {
     { id: "combo-bay-cac-loai", label: "Combo Bay các loại" }
   ]
 };
+
+(() => {
+  const data = window.CATALOG_DATA;
+  const filterCycle = data.filterOptions.filter((option) => option.id !== "all").map((option) => option.id);
+  const categoryPriceBase = {
+    "xay-to": 69000,
+    "op-lat": 89000,
+    "son-nuoc": 59000,
+    "thach-cao": 79000
+  };
+  const categoryCode = {
+    "xay-to": "XT",
+    "op-lat": "OL",
+    "son-nuoc": "SN",
+    "thach-cao": "TC"
+  };
+  const existingByGroup = data.products.reduce((map, product) => {
+    map[product.group] = (map[product.group] || 0) + 1;
+    return map;
+  }, {});
+
+  const placeholderProducts = data.productGroups.flatMap((group) => {
+    const existingCount = existingByGroup[group.id] || 0;
+    const needed = Math.max(0, 6 - existingCount);
+    if (!needed) return [];
+
+    const groupCode = group.id
+      .split("-")
+      .map((part) => part[0])
+      .join("")
+      .toUpperCase();
+    const basePrice = categoryPriceBase[group.category] || 65000;
+    const catCode = categoryCode[group.category] || "DM";
+
+    return Array.from({ length: needed }, (_, index) => {
+      const itemNo = existingCount + index + 1;
+      const productId = `${catCode}-${groupCode}-${String(itemNo).padStart(2, "0")}`;
+      return {
+        id: productId,
+        name: `${group.name} mẫu ${itemNo}`,
+        code: `Mã SP: ${productId}`,
+        price: basePrice + itemNo * 7000,
+        category: group.category,
+        group: group.id,
+        subtype: filterCycle[(itemNo - 1) % filterCycle.length],
+        assetId: group.assetId
+      };
+    });
+  });
+
+  data.products = data.products.concat(placeholderProducts);
+})();

@@ -290,12 +290,7 @@
   }
 
   function renderHeaderStatus() {
-    return `
-      <div class="status-bar">
-        <div>9:41</div>
-        <div class="signal-dots"><img src="${ASSETS.icons.dots}" alt="more" /></div>
-      </div>
-    `;
+    return "";
   }
 
   async function renderHome() {

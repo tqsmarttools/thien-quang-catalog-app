@@ -68,7 +68,7 @@ body {
   min-height: 844px;
   display: flex;
   flex-direction: column;
-  padding: env(safe-area-inset-top, 0) 20px calc(92px + env(safe-area-inset-bottom, 0));
+  padding: 14px 20px calc(76px + env(safe-area-inset-bottom, 0));
   animation: fade-in 180ms ease-out;
 }
 
@@ -1066,12 +1066,12 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  height: calc(82px + env(safe-area-inset-bottom, 0));
+  height: calc(68px + env(safe-area-inset-bottom, 0));
   border-top: 1px solid var(--border-card);
   background: white;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 10px 8px calc(16px + env(safe-area-inset-bottom, 0));
+  padding: 8px 8px calc(6px + env(safe-area-inset-bottom, 0));
   backdrop-filter: blur(12px);
 }
 
@@ -1097,7 +1097,7 @@ body {
 .nav-icon {
   width: 24px;
   height: 24px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   display: inline-flex;
   align-items: center;
   justify-content: center;

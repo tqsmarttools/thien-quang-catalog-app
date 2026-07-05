@@ -70,8 +70,71 @@ window.CATALOG_DATA = {
     },
     {
       id: "ke-can-bang",
-      name: "Ke cân bằng",
+      name: "Ke nêm cân bằng",
       count: "80+ sản phẩm",
+      assetId: "keCanBang",
+      category: "op-lat"
+    },
+    {
+      id: "mang-keo",
+      name: "Máng kéo",
+      count: "45+ sản phẩm",
+      assetId: "banKeoHo60",
+      category: "op-lat"
+    },
+    {
+      id: "bay-rang-cua",
+      name: "Bay răng cưa",
+      count: "55+ sản phẩm",
+      assetId: "bayInox20A",
+      category: "op-lat"
+    },
+    {
+      id: "thuoc-dinh-vi-lo-gach",
+      name: "Thước định vị lỗ gạch",
+      count: "25+ sản phẩm",
+      assetId: "keCanBang",
+      category: "op-lat"
+    },
+    {
+      id: "ban-cat-45-do",
+      name: "Bàn cắt 45 độ",
+      count: "20+ sản phẩm",
+      assetId: "banKeoHo60",
+      category: "op-lat"
+    },
+    {
+      id: "kich-gach",
+      name: "Kích gạch",
+      count: "18+ sản phẩm",
+      assetId: "keCanBang",
+      category: "op-lat"
+    },
+    {
+      id: "hit-gach",
+      name: "Hít gạch",
+      count: "22+ sản phẩm",
+      assetId: "keCanBang",
+      category: "op-lat"
+    },
+    {
+      id: "sung-ban-keo",
+      name: "Súng bắn keo",
+      count: "26+ sản phẩm",
+      assetId: "bayThep20",
+      category: "op-lat"
+    },
+    {
+      id: "ban-day-cat-gach",
+      name: "Bàn đẩy cắt gạch",
+      count: "16+ sản phẩm",
+      assetId: "banKeoHo60",
+      category: "op-lat"
+    },
+    {
+      id: "phu-kien",
+      name: "Phụ kiện",
+      count: "70+ sản phẩm",
       assetId: "keCanBang",
       category: "op-lat"
     }

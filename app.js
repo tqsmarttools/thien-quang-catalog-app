@@ -16,6 +16,7 @@
     currentScreen: "home",
     selectedCategory: "xay-to",
     selectedGroup: "bay-xay-dung",
+    isHomeGroupsExpanded: false,
     activeFilter: "all",
     draftFilter: "all",
     isFilterOpen: false,
@@ -243,6 +244,20 @@
     await render();
   }
 
+  async function selectHomeCategory(categoryId) {
+    state.selectedCategory = categoryId;
+    state.selectedGroup = getDefaultGroupId(categoryId);
+    state.isHomeGroupsExpanded = false;
+    saveState();
+    await render();
+  }
+
+  async function toggleHomeGroupsExpanded() {
+    state.isHomeGroupsExpanded = !state.isHomeGroupsExpanded;
+    saveState();
+    await render();
+  }
+
   function getGroupById(groupId) {
     return productGroups.find((group) => group.id === groupId) || null;
   }
@@ -304,6 +319,8 @@
 
   async function renderHome() {
     const homeData = await API.getHomeData(window.CATALOG_DATA);
+    const visibleGroups = homeData.productGroups.filter((group) => group.category === state.selectedCategory);
+    const hasMoreThanTwoGroups = visibleGroups.length > 2;
     return `
       <div class="page home-page">
         ${renderHeaderStatus()}
@@ -331,14 +348,14 @@
           <div class="category-row">
             ${homeData.categories
               .map(
-                (category, index) => `
-                  <button class="category-card ${index === 0 ? "active" : ""}" type="button" data-category="${category.id}">
+                (category) => `
+                  <button class="category-card ${category.id === state.selectedCategory ? "active" : ""}" type="button" data-category="${category.id}">
                     <div class="category-icon-shell">
                       <img class="category-icon" src="${getAsset("categories", category.assetId)}" alt="${category.name}" />
                     </div>
                     <div class="category-name">${category.name}</div>
                     <div class="category-count">${category.count}</div>
-                    ${index === 0 ? '<div class="category-accent"></div>' : ""}
+                    ${category.id === state.selectedCategory ? '<div class="category-accent"></div>' : ""}
                   </button>
                 `
               )
@@ -349,10 +366,17 @@
         <section class="section">
           <div class="section-head">
             <h2>Nhóm sản phẩm chính</h2>
-            <button class="section-action" type="button">Xem tất cả ›</button>
+            ${
+              hasMoreThanTwoGroups
+                ? `<button class="section-action" type="button" data-action="toggle-home-groups">${state.isHomeGroupsExpanded ? "Thu gọn" : "Xem tất cả ›"}</button>`
+                : ""
+            }
           </div>
-          <div class="home-group-grid">
-            ${homeData.productGroups
+          ${
+            visibleGroups.length
+              ? `
+          <div class="${state.isHomeGroupsExpanded ? "home-group-grid home-group-grid--all" : "home-group-strip"}">
+            ${visibleGroups
               .map(
                 (group) => `
                   <button class="home-group-card" type="button" data-group="${group.id}" data-group-category="${group.category || "xay-to"}">
@@ -371,6 +395,11 @@
               )
               .join("")}
           </div>
+          `
+              : `
+          <div class="home-group-empty">Danh mục này đang cập nhật nhóm sản phẩm chính.</div>
+          `
+          }
         </section>
 
         ${renderBottomNav("home")}
@@ -669,15 +698,17 @@
     bindHeroDots();
 
     root.querySelectorAll("[data-category]").forEach((button) => {
-      button.addEventListener("click", () =>
-        void openProductList(button.dataset.category, getDefaultGroupId(button.dataset.category))
-      );
+      button.addEventListener("click", () => void selectHomeCategory(button.dataset.category));
     });
 
     root.querySelectorAll("[data-group]").forEach((button) => {
       button.addEventListener("click", () =>
         void openProductList(button.dataset.groupCategory || "xay-to", button.dataset.group)
       );
+    });
+
+    root.querySelectorAll('[data-action="toggle-home-groups"]').forEach((button) => {
+      button.addEventListener("click", () => void toggleHomeGroupsExpanded());
     });
 
     root.querySelectorAll("[data-toggle-product]").forEach((button) => {

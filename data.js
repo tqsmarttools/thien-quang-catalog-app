@@ -37,13 +37,43 @@ window.CATALOG_DATA = {
       id: "bay-xay-dung",
       name: "Bay xây dựng",
       count: "120+ sản phẩm",
-      assetId: "bayXayDungPrimary"
+      assetId: "bayXayDungPrimary",
+      category: "xay-to"
+    },
+    {
+      id: "bay-cat-ron",
+      name: "Bay cắt ron",
+      count: "60+ sản phẩm",
+      assetId: "bayInox20A",
+      category: "xay-to"
+    },
+    {
+      id: "ban-cha",
+      name: "Bàn chà",
+      count: "40+ sản phẩm",
+      assetId: "bayThep20",
+      category: "xay-to"
+    },
+    {
+      id: "ban-keo-ho",
+      name: "Bàn kéo hồ",
+      count: "30+ sản phẩm",
+      assetId: "banKeoHo60",
+      category: "xay-to"
+    },
+    {
+      id: "thuoc-day-gat-vua",
+      name: "Thước dây gạt vữa",
+      count: "20+ sản phẩm",
+      assetId: "banKeoHo60",
+      category: "xay-to"
     },
     {
       id: "ke-can-bang",
       name: "Ke cân bằng",
       count: "80+ sản phẩm",
-      assetId: "keCanBang"
+      assetId: "keCanBang",
+      category: "op-lat"
     }
   ],
   products: [

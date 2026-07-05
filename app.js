@@ -243,6 +243,15 @@
     await render();
   }
 
+  function getGroupById(groupId) {
+    return productGroups.find((group) => group.id === groupId) || null;
+  }
+
+  function getDefaultGroupId(categoryId) {
+    const match = productGroups.find((group) => group.category === categoryId);
+    return match ? match.id : productGroups[0]?.id || "bay-xay-dung";
+  }
+
   function openFilter() {
     state.draftFilter = state.activeFilter;
     state.isFilterOpen = true;
@@ -346,7 +355,7 @@
             ${homeData.productGroups
               .map(
                 (group) => `
-                  <button class="home-group-card" type="button" data-group="${group.id}">
+                  <button class="home-group-card" type="button" data-group="${group.id}" data-group-category="${group.category || "xay-to"}">
                     <div class="home-group-stage">
                       <div class="home-group-stage-inner">
                         <img src="${getAsset("products", group.assetId)}" alt="${group.name}" />
@@ -376,6 +385,7 @@
       activeFilter: state.activeFilter
     });
     const grid = listData.products;
+    const currentGroup = getGroupById(state.selectedGroup);
     return `
       <div class="page product-list-page">
         ${renderHeaderStatus()}
@@ -385,7 +395,7 @@
               <img src="${ASSETS.icons.back}" alt="" />
             </button>
             <div>
-              <div class="page-header-title">Bay xây dựng</div>
+              <div class="page-header-title">${currentGroup ? currentGroup.name : "Danh sách sản phẩm"}</div>
               <div class="page-header-subtitle">${listData.totalCountLabel}</div>
             </div>
           </div>
@@ -659,11 +669,15 @@
     bindHeroDots();
 
     root.querySelectorAll("[data-category]").forEach((button) => {
-      button.addEventListener("click", () => void openProductList(button.dataset.category, "bay-xay-dung"));
+      button.addEventListener("click", () =>
+        void openProductList(button.dataset.category, getDefaultGroupId(button.dataset.category))
+      );
     });
 
     root.querySelectorAll("[data-group]").forEach((button) => {
-      button.addEventListener("click", () => void openProductList("xay-to", button.dataset.group));
+      button.addEventListener("click", () =>
+        void openProductList(button.dataset.groupCategory || "xay-to", button.dataset.group)
+      );
     });
 
     root.querySelectorAll("[data-toggle-product]").forEach((button) => {

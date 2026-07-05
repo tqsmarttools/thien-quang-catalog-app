@@ -19,12 +19,16 @@ window.CATALOG_API = {
       params.selectedGroup,
       params.activeFilter
     );
+    const currentGroup = data.productGroups.find((group) => group.id === params.selectedGroup);
 
     return {
       products,
       activeFilter: params.activeFilter,
       activeFilterLabel: service.currentFilterLabel(data.filterOptions, params.activeFilter),
-      totalCountLabel: params.activeFilter === "all" ? "42 sản phẩm" : `${products.length} sản phẩm phù hợp`
+      totalCountLabel:
+        params.activeFilter === "all"
+          ? currentGroup?.count || `${products.length} sản phẩm`
+          : `${products.length} sản phẩm phù hợp`
     };
   },
 

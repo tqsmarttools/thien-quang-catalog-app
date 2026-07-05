@@ -137,6 +137,55 @@ window.CATALOG_DATA = {
       count: "70+ sản phẩm",
       assetId: "keCanBang",
       category: "op-lat"
+    },
+    {
+      id: "dao-tret-bot",
+      name: "Dao trét bột",
+      count: "60+ sản phẩm",
+      assetId: "bayThep20",
+      category: "son-nuoc"
+    },
+    {
+      id: "dao-sui",
+      name: "Dao sủi",
+      count: "35+ sản phẩm",
+      assetId: "bayThep20",
+      category: "son-nuoc"
+    },
+    {
+      id: "ru-lo-lan-son",
+      name: "Ru lô lăn sơn",
+      count: "45+ sản phẩm",
+      assetId: "keCanBang",
+      category: "son-nuoc"
+    },
+    {
+      id: "ban-cha-nham",
+      name: "Bàn chà nhám",
+      count: "28+ sản phẩm",
+      assetId: "banKeoHo60",
+      category: "son-nuoc"
+    },
+    {
+      id: "co-quet-son",
+      name: "Cọ quét sơn",
+      count: "50+ sản phẩm",
+      assetId: "bayInox20A",
+      category: "son-nuoc"
+    },
+    {
+      id: "dung-cu-hieu-ung",
+      name: "Dụng cụ hiệu ứng",
+      count: "18+ sản phẩm",
+      assetId: "keCanBang",
+      category: "son-nuoc"
+    },
+    {
+      id: "dung-cu-khac",
+      name: "Dụng cụ khác",
+      count: "30+ sản phẩm",
+      assetId: "banKeoHo60",
+      category: "son-nuoc"
     }
   ],
   products: [

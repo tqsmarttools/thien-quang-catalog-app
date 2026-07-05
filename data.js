@@ -1,5 +1,31 @@
 window.CATALOG_DATA = {
   storageKey: "tqsmarttools-catalog-state-v1",
+  heroBanners: [
+    {
+      id: "catalog-scale",
+      metric: "2.000+",
+      metricAccent: "sản phẩm",
+      bullets: ["50+ nhóm dụng cụ", "Xuất khẩu nhiều quốc gia"],
+      assetId: "bayXayDungPrimary",
+      imageAlt: "Bay xây dựng"
+    },
+    {
+      id: "catalog-speed",
+      metric: "Giá rõ ràng,",
+      metricAccent: "chọn nhanh",
+      bullets: ["Ảnh thật 1:1 nền trắng", "Thêm vào báo giá chỉ vài chạm"],
+      assetId: "keCanBang",
+      imageAlt: "Ke cân bằng"
+    },
+    {
+      id: "catalog-zalo",
+      metric: "Chọn sản phẩm,",
+      metricAccent: "gửi Zalo ngay",
+      bullets: ["Lưu danh sách đã chọn", "Gọi hoặc gửi báo giá trực tiếp"],
+      assetId: "banKeoHo60",
+      imageAlt: "Bàn kéo hồ"
+    }
+  ],
   categories: [
     { id: "xay-to", name: "Xây tô", count: "300+", assetId: "xayTo" },
     { id: "op-lat", name: "Ốp lát", count: "250+", assetId: "opLat" },

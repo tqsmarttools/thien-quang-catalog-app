@@ -319,14 +319,17 @@ body {
   gap: 8px;
 }
 
-.hero-dots span {
+.hero-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.55);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
-.hero-dots span.active {
+.hero-dot.active {
   width: 10px;
   height: 10px;
   background: white;
@@ -730,10 +733,10 @@ body {
   border: 1px solid var(--border-light);
   border-radius: 16px;
   background: white;
-  padding: 10px 12px;
+  padding: 14px 18px 18px;
   display: grid;
-  grid-template-columns: 96px minmax(0, 1fr) 92px;
-  column-gap: 14px;
+  grid-template-columns: 96px minmax(0, 1fr);
+  column-gap: 16px;
   align-items: start;
 }
 
@@ -768,53 +771,69 @@ body {
 
 .quote-main {
   min-width: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 124px;
+  grid-template-areas:
+    "heading total"
+    "price total"
+    "stepper total";
+  column-gap: 16px;
+  align-items: start;
+  padding-right: 26px;
+}
+
+.quote-heading {
+  grid-area: heading;
+  min-width: 0;
 }
 
 .quote-title {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.2;
 }
 
 .quote-code {
-  margin-top: 8px;
-  font-size: 11px;
+  margin-top: 10px;
+  font-size: 13px;
   color: #6e756f;
-}
-
-.quote-price-row {
-  margin-top: 8px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 8px;
 }
 
 .quote-price {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--price-red-s3);
-}
-
-.quote-total-col {
-  text-align: right;
-}
-
-.quote-total-label {
-  font-size: 10px;
-  color: #6e756f;
-}
-
-.quote-total-value {
-  margin-top: 8px;
+  grid-area: price;
+  margin-top: 16px;
   font-size: 16px;
   font-weight: 700;
   color: var(--price-red-s3);
+  line-height: 1;
+}
+
+.quote-total-col {
+  grid-area: total;
+  justify-self: end;
+  text-align: right;
+  margin-top: 44px;
+}
+
+.quote-total-label {
+  font-size: 12px;
+  color: #6e756f;
+  line-height: 1.2;
+}
+
+.quote-total-value {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--price-red-s3);
+  line-height: 1;
 }
 
 .quote-stepper-row {
-  margin-top: 10px;
+  grid-area: stepper;
+  margin-top: 14px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -867,14 +886,16 @@ body {
 }
 
 .quote-delete {
-  align-self: start;
-  justify-self: end;
+  position: absolute;
+  top: 0;
+  right: 0;
   border: 0;
   background: transparent;
   color: #202220;
   font-size: 19px;
   font-weight: 500;
   line-height: 1;
+  padding: 0;
 }
 
 .summary-card {

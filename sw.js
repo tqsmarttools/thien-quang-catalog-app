@@ -1,11 +1,16 @@
-const CACHE_NAME = "tq-catalog-v2";
+const CACHE_NAME = "tq-catalog-v3";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./app.js",
-  "./data.js",
-  "./manifest.webmanifest",
+  "./styles.css?v=20260703-banner",
+  "./assets.js?v=20260703-banner",
+  "./app.js?v=20260703-banner",
+  "./data.js?v=20260703-banner",
+  "./storage.js?v=20260703-banner",
+  "./catalog-service.js?v=20260703-banner",
+  "./api.js?v=20260703-banner",
+  "./message-template.js?v=20260703-banner",
+  "./manifest.webmanifest?v=20260703-banner",
   "./public/assets/icon-app.svg",
   "./public/assets/icon-app-192.png",
   "./public/assets/icon-app-512.png",

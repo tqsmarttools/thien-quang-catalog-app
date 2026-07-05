@@ -1,6 +1,7 @@
 (function () {
   const {
     storageKey: STORAGE_KEY,
+    heroBanners,
     categories,
     productGroups,
     products,
@@ -20,11 +21,13 @@
     isFilterOpen: false,
     isPreviewOpen: false,
     isLoading: false,
+    heroIndex: 0,
     note: "",
     quote: {}
   };
   const state = STORAGE.load(STORAGE_KEY, INITIAL_STATE, getScreenFromHash);
   const root = document.getElementById("screen-root");
+  let heroTimer = null;
 
   function getScreenFromHash() {
     const hash = window.location.hash.replace(/^#/, "");
@@ -41,6 +44,39 @@
 
   function saveState() {
     STORAGE.save(STORAGE_KEY, state);
+  }
+
+  function normalizedHeroIndex(index) {
+    if (!heroBanners.length) return 0;
+    const safeIndex = Number.isInteger(index) ? index : 0;
+    return ((safeIndex % heroBanners.length) + heroBanners.length) % heroBanners.length;
+  }
+
+  state.heroIndex = normalizedHeroIndex(state.heroIndex);
+
+  function setHeroIndex(index) {
+    state.heroIndex = normalizedHeroIndex(index);
+    saveState();
+    if (state.currentScreen === "home" && refreshHeroBanner()) return;
+    render();
+  }
+
+  function advanceHero() {
+    setHeroIndex(state.heroIndex + 1);
+  }
+
+  function stopHeroAutoplay() {
+    if (!heroTimer) return;
+    window.clearInterval(heroTimer);
+    heroTimer = null;
+  }
+
+  function syncHeroAutoplay() {
+    stopHeroAutoplay();
+    if (state.currentScreen !== "home" || heroBanners.length < 2) return;
+    heroTimer = window.setInterval(() => {
+      advanceHero();
+    }, 4200);
   }
 
   function quoteEntries() {
@@ -115,6 +151,53 @@
   function closeQuotePreview() {
     state.isPreviewOpen = false;
     render();
+  }
+
+  function renderHeroBanner() {
+    const activeHero = heroBanners[normalizedHeroIndex(state.heroIndex)] || heroBanners[0];
+    return `
+      <section class="hero-banner">
+        <div class="hero-copy">
+          <div class="metric">${activeHero.metric}<br /><span>${activeHero.metricAccent}</span></div>
+          <ul>
+            ${activeHero.bullets.map((bullet) => `<li>${bullet}</li>`).join("")}
+          </ul>
+        </div>
+        <div class="hero-stage">
+          <div class="hero-stage-inner">
+            <img src="${getAsset("products", activeHero.assetId)}" alt="${activeHero.imageAlt}" />
+          </div>
+        </div>
+        <div class="hero-dots">
+          ${heroBanners
+            .map(
+              (banner, index) => `
+                <button
+                  class="hero-dot ${index === normalizedHeroIndex(state.heroIndex) ? "active" : ""}"
+                  type="button"
+                  data-hero-dot="${index}"
+                  aria-label="Chuyển banner ${index + 1}"
+                ></button>
+              `
+            )
+            .join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  function bindHeroDots() {
+    root.querySelectorAll("[data-hero-dot]").forEach((button) => {
+      button.addEventListener("click", () => setHeroIndex(Number(button.dataset.heroDot)));
+    });
+  }
+
+  function refreshHeroBanner() {
+    const banner = root.querySelector(".hero-banner");
+    if (!banner) return false;
+    banner.outerHTML = renderHeroBanner();
+    bindHeroDots();
+    return true;
   }
 
   async function setScreen(screen) {
@@ -206,23 +289,7 @@
           </button>
         </div>
 
-        <section class="hero-banner">
-          <div class="hero-copy">
-            <div class="metric">2.000+<br /><span>sản phẩm</span></div>
-            <ul>
-              <li>50+ nhóm dụng cụ</li>
-              <li>Xuất khẩu nhiều quốc gia</li>
-            </ul>
-          </div>
-          <div class="hero-stage">
-            <div class="hero-stage-inner">
-              <img src="${ASSETS.heroBay}" alt="Bay xây dựng" />
-            </div>
-          </div>
-          <div class="hero-dots">
-            <span></span><span class="active"></span><span></span>
-          </div>
-        </section>
+        ${renderHeroBanner()}
 
         <section class="section">
           <div class="section-head">
@@ -424,15 +491,16 @@
               </div>
             </div>
             <div class="quote-main">
-              <div class="quote-title">${product.name}</div>
-              <div class="quote-code">${product.code}</div>
-              <div class="quote-price-row">
-                <div class="quote-price">${SERVICE.formatPrice(product.price)}</div>
-                <div class="quote-total-col">
-                  <div class="quote-total-label">Thành tiền</div>
-                  <div class="quote-total-value">${SERVICE.formatPrice(product.price * qty)}</div>
-                </div>
+              <button class="quote-delete" type="button" data-delete="${product.id}">×</button>
+              <div class="quote-heading">
+                <div class="quote-title">${product.name}</div>
+                <div class="quote-code">${product.code}</div>
               </div>
+              <div class="quote-total-col">
+                <div class="quote-total-label">Thành tiền</div>
+                <div class="quote-total-value">${SERVICE.formatPrice(product.price * qty)}</div>
+              </div>
+              <div class="quote-price">${SERVICE.formatPrice(product.price)}</div>
               <div class="quote-stepper-row">
                 <div class="qty-stepper">
                   <button type="button" data-qty-minus="${product.id}" aria-label="Giảm số lượng"><img src="${ASSETS.icons.minus}" alt="" /></button>
@@ -443,7 +511,6 @@
                 </div>
               </div>
             </div>
-            <button class="quote-delete" type="button" data-delete="${product.id}">×</button>
           </article>
         `
       )
@@ -552,9 +619,12 @@
     }
     state.isLoading = false;
     bindEvents();
+    syncHeroAutoplay();
   }
 
   function bindEvents() {
+    bindHeroDots();
+
     root.querySelectorAll("[data-category]").forEach((button) => {
       button.addEventListener("click", () => void openProductList(button.dataset.category, "bay-xay-dung"));
     });
@@ -639,6 +709,10 @@
       saveState();
       void render();
     }
+  });
+
+  window.addEventListener("beforeunload", () => {
+    stopHeroAutoplay();
   });
 
   void render();

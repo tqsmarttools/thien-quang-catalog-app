@@ -1,11 +1,15 @@
 {
-  "name": "Thiên Quang Smarttools Catalog",
+  "id": "./",
+  "name": "Thi\u00ean Quang Smarttools Catalog",
   "short_name": "TQ Catalog",
-  "start_url": "./index.html",
+  "description": "Catalog mobile-only cho Thi\u00ean Quang Smarttools.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#fcfcfa",
   "theme_color": "#145c4e",
-  "lang": "vi",
   "icons": [
     {
       "src": "./public/assets/icon-app-192.png",
@@ -19,8 +23,5 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ],
-  "orientation": "portrait",
-  "scope": "./",
-  "description": "Catalog nội bộ mobile-only cho Thiên Quang Smarttools"
+  ]
 }

@@ -7,11 +7,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="TQ Catalog" />
-    <title>Thiên Quang Smarttools Catalog</title>
+    <title>Thi&#234;n Quang Smarttools Catalog</title>
     <link rel="icon" href="./public/assets/icon-app.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./public/assets/icon-app-192.png" />
-    <link rel="manifest" href="./manifest.webmanifest?v=20260703-banner" />
-    <link rel="stylesheet" href="./styles.css?v=20260703-banner" />
+    <link rel="manifest" href="./manifest.webmanifest?v=20260705-pagesfix1" />
+    <link rel="stylesheet" href="./styles.css?v=20260705-pagesfix1" />
   </head>
   <body>
     <div class="app-shell">
@@ -19,19 +19,47 @@
         <div class="screen" id="screen-root"></div>
       </div>
     </div>
-    <script src="./assets.js?v=20260703-banner"></script>
-    <script src="./data.js?v=20260703-banner"></script>
-    <script src="./storage.js?v=20260703-banner"></script>
-    <script src="./catalog-service.js?v=20260703-banner"></script>
-    <script src="./api.js?v=20260703-banner"></script>
-    <script src="./message-template.js?v=20260703-banner"></script>
-    <script src="./app.js?v=20260703-banner"></script>
+    <script src="./assets.js?v=20260705-pagesfix1"></script>
+    <script src="./data.js?v=20260705-pagesfix1"></script>
+    <script src="./storage.js?v=20260705-pagesfix1"></script>
+    <script src="./catalog-service.js?v=20260705-pagesfix1"></script>
+    <script src="./api.js?v=20260705-pagesfix1"></script>
+    <script src="./message-template.js?v=20260705-pagesfix1"></script>
+    <script src="./app.js?v=20260705-pagesfix1"></script>
     <script>
-      if ("serviceWorker" in navigator) {
+      (function () {
+        var host = window.location.hostname || "";
+        var isPreviewHost =
+          host === "localhost" ||
+          host === "127.0.0.1" ||
+          host.endsWith(".loca.lt") ||
+          /^192\\.168\\./.test(host) ||
+          /^10\\./.test(host) ||
+          /^172\\.(1[6-9]|2\\d|3[0-1])\\./.test(host);
+
+        if (!("serviceWorker" in navigator)) return;
+
         window.addEventListener("load", function () {
+          if (isPreviewHost) {
+            navigator.serviceWorker.getRegistrations().then(function (registrations) {
+              registrations.forEach(function (registration) {
+                registration.unregister();
+              });
+            });
+
+            if ("caches" in window) {
+              caches.keys().then(function (keys) {
+                keys.forEach(function (key) {
+                  caches.delete(key);
+                });
+              });
+            }
+            return;
+          }
+
           navigator.serviceWorker.register("./sw.js").catch(function () {});
         });
-      }
+      })();
     </script>
   </body>
 </html>

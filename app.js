@@ -28,6 +28,8 @@
   const state = STORAGE.load(STORAGE_KEY, INITIAL_STATE, getScreenFromHash);
   const root = document.getElementById("screen-root");
   let heroTimer = null;
+  let addToastTimer = null;
+  let isAddToastVisible = false;
 
   function getScreenFromHash() {
     const hash = window.location.hash.replace(/^#/, "");
@@ -95,11 +97,36 @@
     return Boolean(state.quote[productId]);
   }
 
+  function hideAddToast() {
+    if (addToastTimer) {
+      window.clearTimeout(addToastTimer);
+      addToastTimer = null;
+    }
+    if (!isAddToastVisible) return;
+    isAddToastVisible = false;
+    if (state.currentScreen === "product-list") {
+      render();
+    }
+  }
+
+  function showAddToast() {
+    if (addToastTimer) {
+      window.clearTimeout(addToastTimer);
+    }
+    isAddToastVisible = true;
+    addToastTimer = window.setTimeout(() => {
+      addToastTimer = null;
+      hideAddToast();
+    }, 2200);
+  }
+
   function toggleProduct(productId) {
     if (state.quote[productId]) {
       delete state.quote[productId];
+      hideAddToast();
     } else {
       state.quote[productId] = 1;
+      showAddToast();
     }
     saveState();
     render();
@@ -278,7 +305,9 @@
         ${renderHeaderStatus()}
         <div class="home-header">
           <div class="brand-block">
-            <div class="brand-logo">TQ</div>
+            <div class="brand-logo">
+              <img src="${ASSETS.brandLogo}" alt="Thiên Quang Smarttools" />
+            </div>
             <div class="brand-copy">
               <strong>THIÊN QUANG</strong>
               <span>SMARTTOOLS</span>
@@ -407,7 +436,7 @@
             .join("")}
         </div>
 
-        <div class="toast ${totalQuoteItems() ? "" : "hidden"}">
+        <div class="toast ${isAddToastVisible && totalQuoteItems() ? "" : "hidden"}">
           <span>✓ Đã thêm</span>
           <strong>${totalQuoteItems()} sản phẩm</strong>
         </div>
@@ -495,6 +524,15 @@
               <div class="quote-heading">
                 <div class="quote-title">${product.name}</div>
                 <div class="quote-code">${product.code}</div>
+              </div>
+              <div class="quote-meta-row">
+                <div class="quote-meta-code">${product.code}</div>
+                <div class="quote-meta-label-fixed">Th&#224;nh ti&#7873;n</div>
+                <div class="quote-meta-label">ThÃ nh tiá»n</div>
+              </div>
+              <div class="quote-amount-row">
+                <div class="quote-amount-price">${SERVICE.formatPrice(product.price)}</div>
+                <div class="quote-amount-total">${SERVICE.formatPrice(product.price * qty)}</div>
               </div>
               <div class="quote-total-col">
                 <div class="quote-total-label">Thành tiền</div>
@@ -713,6 +751,7 @@
 
   window.addEventListener("beforeunload", () => {
     stopHeroAutoplay();
+    hideAddToast();
   });
 
   void render();

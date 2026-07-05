@@ -1,60 +1,58 @@
-# Thiên Quang Smarttools Catalog App
+# Thien Quang Smarttools Catalog App
 
-Mobile-first static prototype built from the latest Figma handoff package.
+Mobile-only catalog PWA built from the latest Figma handoff.
 
 ## Run locally
 
 From this folder:
 
 ```powershell
-python -m http.server 4173
+node dev-server.js
 ```
 
 Then open:
 
 ```text
-http://127.0.0.1:4173/
+http://127.0.0.1:4273/
 ```
 
-## Preview deploy
+## Public deploy
 
-This app is static, so it can be deployed quickly on either:
+This app is configured for static deploy on:
 
-- Vercel
-- Netlify
 - GitHub Pages
+- Netlify
+- Vercel
 
 Included config:
 
-- `vercel.json`
-- `netlify.toml`
 - `.github/workflows/deploy-pages.yml`
+- `netlify.toml`
+- `vercel.json`
 
-## GitHub Pages
+## GitHub Pages URL
 
-This repository is prepared for GitHub Pages deployment through GitHub Actions.
-
-After the workflow runs successfully, the preview URL should follow this shape:
+Once the Pages workflow succeeds, the public URL is:
 
 ```text
 https://tqsmarttools.github.io/thien-quang-catalog-app/
 ```
 
-## Included flows
+## Included screens
 
 - `Screen 01` Home
 - `Screen 02` Product List
 - `Screen 02B` Filter Bottom Sheet
 - `Screen 03` Quote List
 
-## Behavior implemented
+## Current behavior
 
-- Navigation between screens
-- Product add/remove toggle
+- Screen navigation
+- Product add/remove on Screen 02
 - Quantity stepper with persisted quote state
-- Local storage persistence
-- Filter bottom sheet with single-select apply/reset flow
-- Zalo quote message draft generation
+- Quote list persistence in local storage
+- Filter bottom sheet with apply/reset flow
+- Zalo quote message generation
 
 ## Assets
 

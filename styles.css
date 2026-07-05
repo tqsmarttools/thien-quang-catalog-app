@@ -5,6 +5,7 @@
   --brand-red: #d94232;
   --price-red: #e64a33;
   --price-red-s3: #e31b23;
+  --badge-red: #ef3b3b;
   --accent-yellow: #ffcb2f;
   --zalo-blue: #0068ff;
   --bg-screen: #fcfcfa;
@@ -160,14 +161,18 @@ body {
 .brand-logo {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(145deg, #0f5a4c, #1f7f6c);
+  border-radius: 12px;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 20px;
-  font-weight: 700;
+  overflow: hidden;
+}
+
+.brand-logo img {
+  width: 40px;
+  height: 40px;
+  display: block;
 }
 
 .brand-copy {
@@ -735,14 +740,14 @@ body {
   background: white;
   padding: 14px 18px 18px;
   display: grid;
-  grid-template-columns: 96px minmax(0, 1fr);
+  grid-template-columns: 112px minmax(0, 1fr);
   column-gap: 16px;
   align-items: start;
 }
 
 .quote-image-shell {
-  width: 96px;
-  height: 96px;
+  width: 112px;
+  height: 112px;
   border-radius: 9px;
   background: var(--bg-image-zone);
   display: flex;
@@ -751,8 +756,8 @@ body {
 }
 
 .quote-image-inner {
-  width: 96px;
-  height: 96px;
+  width: 112px;
+  height: 112px;
   border-radius: 8px;
   background: white;
   display: flex;
@@ -763,8 +768,8 @@ body {
 }
 
 .quote-image-inner img {
-  width: 90px;
-  height: 90px;
+  width: 106px;
+  height: 106px;
   object-fit: contain;
   border-radius: inherit;
 }
@@ -772,38 +777,92 @@ body {
 .quote-main {
   min-width: 0;
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 124px;
-  grid-template-areas:
-    "heading total"
-    "price total"
-    "stepper total";
-  column-gap: 16px;
-  align-items: start;
-  padding-right: 26px;
+  min-height: 110px;
 }
 
 .quote-heading {
-  grid-area: heading;
   min-width: 0;
+  padding-right: 28px;
 }
 
 .quote-title {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-primary);
-  line-height: 1.2;
+  line-height: 1.25;
+}
+
+.quote-heading .quote-code,
+.quote-total-col,
+.quote-main > .quote-price {
+  display: none;
+}
+
+.quote-meta-row,
+.quote-amount-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.quote-meta-row {
+  margin-top: 10px;
+}
+
+.quote-meta-code,
+.quote-meta-label,
+.quote-meta-label-fixed {
+  font-size: 12px;
+  line-height: 1.25;
+  color: #6e756f;
+}
+
+.quote-meta-code {
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.quote-meta-label,
+.quote-meta-label-fixed {
+  text-align: right;
+  width: 120px;
+  margin-left: auto;
+}
+
+.quote-meta-label {
+  display: none;
+}
+
+.quote-amount-row {
+  margin-top: 12px;
+}
+
+.quote-amount-price,
+.quote-amount-total {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--price-red-s3);
+}
+
+.quote-amount-total {
+  text-align: right;
+  width: 120px;
+  margin-left: auto;
 }
 
 .quote-code {
-  margin-top: 10px;
-  font-size: 13px;
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.25;
   color: #6e756f;
 }
 
 .quote-price {
-  grid-area: price;
-  margin-top: 16px;
+  margin-top: 22px;
+  max-width: calc(100% - 94px);
   font-size: 16px;
   font-weight: 700;
   color: var(--price-red-s3);
@@ -811,16 +870,17 @@ body {
 }
 
 .quote-total-col {
-  grid-area: total;
-  justify-self: end;
+  position: absolute;
+  top: 24px;
+  right: 0;
+  width: 88px;
   text-align: right;
-  margin-top: 44px;
 }
 
 .quote-total-label {
   font-size: 12px;
   color: #6e756f;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .quote-total-value {
@@ -832,8 +892,8 @@ body {
 }
 
 .quote-stepper-row {
-  grid-area: stepper;
   margin-top: 14px;
+  max-width: calc(100% - 94px);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -872,6 +932,10 @@ body {
   display: block;
 }
 
+.qty-stepper button[data-qty-plus] img {
+  transform: translateX(-2px);
+}
+
 .qty-value {
   min-width: 18px;
   text-align: center;
@@ -880,9 +944,11 @@ body {
 }
 
 .qty-divider {
+  display: inline-block;
   width: 1px;
   height: 17px;
   background: var(--divider-qty);
+  flex: 0 0 1px;
 }
 
 .quote-delete {
@@ -1019,8 +1085,8 @@ body {
 
 .nav-badge {
   position: absolute;
-  top: -2px;
-  right: 38px;
+  top: -1px;
+  left: 50%;
   min-width: 18px;
   height: 18px;
   border-radius: 999px;
@@ -1032,6 +1098,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transform: translateX(10px);
 }
 
 .toast {

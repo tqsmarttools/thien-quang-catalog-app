@@ -1,4 +1,5 @@
 window.CATALOG_ASSETS = {
+  brandLogo: "public/assets/logo-thien-quang.png",
   heroBay: "public/assets/bay-inox-22-a.png",
   categories: {
     xayTo: "public/assets/bay-thep-20.png",

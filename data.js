@@ -75,7 +75,7 @@ window.CATALOG_DATA = {
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "can-tre",
-      assetId: "bayThep20"
+      assetId: "bayInox20A"
     },
     {
       id: "BXD-X04",

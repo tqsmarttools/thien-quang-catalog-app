@@ -16,7 +16,6 @@
     currentScreen: "home",
     selectedCategory: "xay-to",
     selectedGroup: "bay-xay-dung",
-    isHomeGroupsExpanded: false,
     activeFilter: "all",
     draftFilter: "all",
     isFilterOpen: false,
@@ -34,7 +33,7 @@
 
   function getScreenFromHash() {
     const hash = window.location.hash.replace(/^#/, "");
-    if (hash === "product-list" || hash === "quote-list") return hash;
+    if (hash === "group-list" || hash === "product-list" || hash === "quote-list") return hash;
     return "home";
   }
 
@@ -247,19 +246,25 @@
   async function selectHomeCategory(categoryId) {
     state.selectedCategory = categoryId;
     state.selectedGroup = getDefaultGroupId(categoryId);
-    state.isHomeGroupsExpanded = false;
     saveState();
     await render();
   }
 
-  async function toggleHomeGroupsExpanded() {
-    state.isHomeGroupsExpanded = !state.isHomeGroupsExpanded;
+  async function openGroupList(categoryId) {
+    state.selectedCategory = categoryId;
+    state.selectedGroup = getDefaultGroupId(categoryId);
+    state.currentScreen = "group-list";
     saveState();
+    syncHash("group-list");
     await render();
   }
 
   function getGroupById(groupId) {
     return productGroups.find((group) => group.id === groupId) || null;
+  }
+
+  function getCategoryById(categoryId) {
+    return categories.find((category) => category.id === categoryId) || null;
   }
 
   function getDefaultGroupId(categoryId) {
@@ -368,14 +373,14 @@
             <h2>Nhóm sản phẩm chính</h2>
             ${
               hasMoreThanTwoGroups
-                ? `<button class="section-action" type="button" data-action="toggle-home-groups">${state.isHomeGroupsExpanded ? "Thu gọn" : "Xem tất cả ›"}</button>`
+                ? `<button class="section-action" type="button" data-action="open-group-list">Xem tất cả ›</button>`
                 : ""
             }
           </div>
           ${
             visibleGroups.length
               ? `
-          <div class="${state.isHomeGroupsExpanded ? "home-group-grid home-group-grid--all" : "home-group-strip"}">
+          <div class="home-group-strip">
             ${visibleGroups
               .map(
                 (group) => `
@@ -401,6 +406,50 @@
           `
           }
         </section>
+
+        ${renderBottomNav("home")}
+      </div>
+    `;
+  }
+
+  async function renderGroupList() {
+    const currentCategory = getCategoryById(state.selectedCategory);
+    const visibleGroups = productGroups.filter((group) => group.category === state.selectedCategory);
+    return `
+      <div class="page group-browser-page">
+        ${renderHeaderStatus()}
+        <div class="page-header">
+          <div class="page-header-left">
+            <button class="back-btn" type="button" data-action="back-home" aria-label="Quay lại">
+              <img src="${ASSETS.icons.back}" alt="" />
+            </button>
+            <div>
+              <div class="page-header-title">${currentCategory ? currentCategory.name : "Nhóm sản phẩm"}</div>
+              <div class="page-header-subtitle">${visibleGroups.length}+ nhóm sản phẩm chính</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group-browser-grid">
+          ${visibleGroups
+            .map(
+              (group) => `
+                <button class="home-group-card group-browser-card" type="button" data-group="${group.id}" data-group-category="${group.category || "xay-to"}">
+                  <div class="home-group-stage">
+                    <div class="home-group-stage-inner">
+                      <img src="${getAsset("products", group.assetId)}" alt="${group.name}" />
+                    </div>
+                  </div>
+                  <div class="home-group-title">${group.name}</div>
+                  <div class="home-group-meta">
+                    <span>${group.count}</span>
+                    <span>›</span>
+                  </div>
+                </button>
+              `
+            )
+            .join("")}
+        </div>
 
         ${renderBottomNav("home")}
       </div>
@@ -684,6 +733,8 @@
     root.innerHTML = `<div class="page loading-page"><div class="loading-shell"><div class="loading-dot"></div><p>Đang tải giao diện...</p></div></div>`;
     if (state.currentScreen === "home") {
       root.innerHTML = await renderHome();
+    } else if (state.currentScreen === "group-list") {
+      root.innerHTML = await renderGroupList();
     } else if (state.currentScreen === "product-list") {
       root.innerHTML = await renderProductList();
     } else {
@@ -707,8 +758,8 @@
       );
     });
 
-    root.querySelectorAll('[data-action="toggle-home-groups"]').forEach((button) => {
-      button.addEventListener("click", () => void toggleHomeGroupsExpanded());
+    root.querySelectorAll('[data-action="open-group-list"]').forEach((button) => {
+      button.addEventListener("click", () => void openGroupList(state.selectedCategory));
     });
 
     root.querySelectorAll("[data-toggle-product]").forEach((button) => {

@@ -30,7 +30,6 @@ window.CATALOG_STORAGE = {
         currentScreen: state.currentScreen,
         selectedCategory: state.selectedCategory,
         selectedGroup: state.selectedGroup,
-        isHomeGroupsExpanded: state.isHomeGroupsExpanded,
         activeFilter: state.activeFilter,
         draftFilter: state.draftFilter,
         isFilterOpen: state.isFilterOpen,

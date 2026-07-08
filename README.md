@@ -41,18 +41,43 @@ https://tqsmarttools.github.io/thien-quang-catalog-app/
 ## Included screens
 
 - `Screen 01` Home
-- `Screen 02` Product List
-- `Screen 02B` Filter Bottom Sheet
-- `Screen 03` Quote List
+- `Screen 02` Category Group Browser
+- `Screen 03` Product List
+- `Screen 04` Quote List
 
 ## Current behavior
 
-- Screen navigation
-- Product add/remove on Screen 02
+- Category-first browsing on Home
+- Group browser before product list
+- Product add/remove on product list
 - Quantity stepper with persisted quote state
 - Quote list persistence in local storage
 - Filter bottom sheet with apply/reset flow
 - Zalo quote message generation
+
+## GA4 setup
+
+To enable Google Analytics 4 tracking:
+
+1. Open [data.js](/C:/Users/Admin/Documents/Thiên%20Quang%20Catalog%20App/data.js)
+2. Set `analytics.ga4MeasurementId` to your GA4 Measurement ID
+3. Redeploy the app
+
+The tracking scaffold is already wired for:
+
+- `app_open`
+- `screen_view`
+- `select_category`
+- `view_all_groups`
+- `open_product_group`
+- `add_to_quote`
+- `remove_from_quote`
+- `change_quote_quantity`
+- `apply_product_filter`
+- `clear_product_filter`
+- `preview_quote_message`
+- `send_quote_to_zalo`
+- `tap_contact_cta`
 
 ## Assets
 

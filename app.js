@@ -11,6 +11,7 @@
   const STORAGE = window.CATALOG_STORAGE;
   const SERVICE = window.CATALOG_SERVICE;
   const API = window.CATALOG_API;
+  const ANALYTICS = window.CATALOG_ANALYTICS;
   const MESSAGE_TEMPLATE = window.CATALOG_MESSAGE_TEMPLATE;
   const INITIAL_STATE = {
     currentScreen: "home",
@@ -30,6 +31,8 @@
   let heroTimer = null;
   let addToastTimer = null;
   let isAddToastVisible = false;
+  let lastTrackedScreenKey = "";
+  let hasTrackedAppOpen = false;
 
   function getScreenFromHash() {
     const hash = window.location.hash.replace(/^#/, "");
@@ -46,6 +49,11 @@
 
   function saveState() {
     STORAGE.save(STORAGE_KEY, state);
+  }
+
+  function trackEvent(eventName, params = {}) {
+    if (!ANALYTICS) return false;
+    return ANALYTICS.track(eventName, params);
   }
 
   function normalizedHeroIndex(index) {
@@ -121,11 +129,28 @@
   }
 
   function toggleProduct(productId) {
+    const product = getProductById(productId);
     if (state.quote[productId]) {
       delete state.quote[productId];
+      trackEvent("remove_from_quote", {
+        product_id: product?.id,
+        product_name: product?.name,
+        category_id: product?.category,
+        group_id: product?.group,
+        price: product?.price,
+        quote_items: totalQuoteItems()
+      });
       hideAddToast();
     } else {
       state.quote[productId] = 1;
+      trackEvent("add_to_quote", {
+        product_id: product?.id,
+        product_name: product?.name,
+        category_id: product?.category,
+        group_id: product?.group,
+        price: product?.price,
+        quote_items: totalQuoteItems()
+      });
       showAddToast();
     }
     saveState();
@@ -133,16 +158,34 @@
   }
 
   function changeQty(productId, delta) {
+    const product = getProductById(productId);
     const current = state.quote[productId] || 1;
     const next = current + delta;
     if (next < 1) return;
     state.quote[productId] = next;
+    trackEvent("change_quote_quantity", {
+      product_id: product?.id,
+      product_name: product?.name,
+      category_id: product?.category,
+      group_id: product?.group,
+      quantity: next
+    });
     saveState();
     render();
   }
 
   function removeQuoteItem(productId) {
+    const product = getProductById(productId);
     delete state.quote[productId];
+    trackEvent("remove_from_quote", {
+      product_id: product?.id,
+      product_name: product?.name,
+      category_id: product?.category,
+      group_id: product?.group,
+      price: product?.price,
+      source: "quote_list",
+      quote_items: totalQuoteItems()
+    });
     saveState();
     render();
   }
@@ -166,11 +209,19 @@
   }
 
   function openZaloQuote() {
+    trackEvent("send_quote_to_zalo", {
+      quote_items: totalQuoteItems(),
+      quote_value: totalQuotePrice()
+    });
     const message = encodeURIComponent(buildZaloMessage());
     window.open(`https://zalo.me/share?text=${message}`, "_blank", "noopener");
   }
 
   function openQuotePreview() {
+    trackEvent("preview_quote_message", {
+      quote_items: totalQuoteItems(),
+      quote_value: totalQuotePrice()
+    });
     state.isPreviewOpen = true;
     render();
   }
@@ -235,25 +286,47 @@
   }
 
   async function openProductList(categoryId, groupId) {
+    const category = getCategoryById(categoryId);
+    const group = getGroupById(groupId);
+    const sourceScreen = state.currentScreen;
     state.selectedCategory = categoryId;
     state.selectedGroup = groupId;
     state.currentScreen = "product-list";
+    trackEvent("open_product_group", {
+      category_id: category?.id,
+      category_name: category?.name,
+      group_id: group?.id,
+      group_name: group?.name,
+      source: sourceScreen === "group-list" ? "group_list" : "home"
+    });
     saveState();
     syncHash("product-list");
     await render();
   }
 
   async function selectHomeCategory(categoryId) {
+    const category = getCategoryById(categoryId);
     state.selectedCategory = categoryId;
     state.selectedGroup = getDefaultGroupId(categoryId);
+    trackEvent("select_category", {
+      category_id: category?.id,
+      category_name: category?.name,
+      source: "home"
+    });
     saveState();
     await render();
   }
 
   async function openGroupList(categoryId) {
+    const category = getCategoryById(categoryId);
     state.selectedCategory = categoryId;
     state.selectedGroup = getDefaultGroupId(categoryId);
     state.currentScreen = "group-list";
+    trackEvent("view_all_groups", {
+      category_id: category?.id,
+      category_name: category?.name,
+      group_count: productGroups.filter((group) => group.category === categoryId).length
+    });
     saveState();
     syncHash("group-list");
     await render();
@@ -267,9 +340,77 @@
     return categories.find((category) => category.id === categoryId) || null;
   }
 
+  function getProductById(productId) {
+    return products.find((product) => product.id === productId) || null;
+  }
+
   function getDefaultGroupId(categoryId) {
     const match = productGroups.find((group) => group.category === categoryId);
     return match ? match.id : productGroups[0]?.id || "bay-xay-dung";
+  }
+
+  function buildScreenMeta() {
+    const category = getCategoryById(state.selectedCategory);
+    const group = getGroupById(state.selectedGroup);
+
+    if (state.currentScreen === "home") {
+      return {
+        screenName: "home",
+        screenKey: `home:${state.selectedCategory}`,
+        params: {
+          category_id: category?.id,
+          category_name: category?.name
+        }
+      };
+    }
+
+    if (state.currentScreen === "group-list") {
+      return {
+        screenName: "group_list",
+        screenKey: `group-list:${state.selectedCategory}`,
+        params: {
+          category_id: category?.id,
+          category_name: category?.name,
+          group_count: productGroups.filter((item) => item.category === state.selectedCategory).length
+        }
+      };
+    }
+
+    if (state.currentScreen === "product-list") {
+      return {
+        screenName: "product_list",
+        screenKey: `product-list:${state.selectedCategory}:${state.selectedGroup}`,
+        params: {
+          category_id: category?.id,
+          category_name: category?.name,
+          group_id: group?.id,
+          group_name: group?.name
+        }
+      };
+    }
+
+    return {
+      screenName: "quote_list",
+      screenKey: `quote-list:${totalQuoteItems()}`,
+      params: {
+        quote_items: totalQuoteItems(),
+        quote_value: totalQuotePrice()
+      }
+    };
+  }
+
+  function trackCurrentScreen() {
+    if (!ANALYTICS?.isEnabled()) return;
+    if (!hasTrackedAppOpen) {
+      hasTrackedAppOpen = true;
+      trackEvent("app_open", {
+        entry_screen: state.currentScreen
+      });
+    }
+    const meta = buildScreenMeta();
+    if (meta.screenKey === lastTrackedScreenKey) return;
+    lastTrackedScreenKey = meta.screenKey;
+    ANALYTICS.trackScreen(meta.screenName, meta.params);
   }
 
   function openFilter() {
@@ -288,6 +429,11 @@
   function applyFilter() {
     state.activeFilter = state.draftFilter;
     state.isFilterOpen = false;
+    trackEvent("apply_product_filter", {
+      category_id: state.selectedCategory,
+      group_id: state.selectedGroup,
+      filter_id: state.activeFilter
+    });
     saveState();
     render();
   }
@@ -300,6 +446,10 @@
   function clearAppliedFilter() {
     state.activeFilter = "all";
     state.draftFilter = "all";
+    trackEvent("clear_product_filter", {
+      category_id: state.selectedCategory,
+      group_id: state.selectedGroup
+    });
     saveState();
     render();
   }
@@ -743,6 +893,7 @@
     state.isLoading = false;
     bindEvents();
     syncHeroAutoplay();
+    trackCurrentScreen();
   }
 
   function bindEvents() {
@@ -803,7 +954,10 @@
           openZaloQuote();
         }
         if (action === "send-zalo") openZaloQuote();
-        if (action === "call") window.open("https://zalo.me", "_blank", "noopener");
+        if (action === "call") {
+          trackEvent("tap_contact_cta", { channel: "zalo" });
+          window.open("https://zalo.me", "_blank", "noopener");
+        }
       });
     });
 

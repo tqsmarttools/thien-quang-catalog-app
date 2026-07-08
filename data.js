@@ -1,5 +1,9 @@
 window.CATALOG_DATA = {
   storageKey: "tqsmarttools-catalog-state-v1",
+  analytics: {
+    ga4MeasurementId: "",
+    debugMode: false
+  },
   heroBanners: [
     {
       id: "catalog-scale",

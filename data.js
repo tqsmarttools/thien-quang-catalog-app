@@ -40,7 +40,7 @@ window.CATALOG_DATA = {
     {
       id: "bay-xay-dung",
       name: "Bay xây dựng",
-      count: "120+ sản phẩm",
+      count: "10 sản phẩm",
       assetId: "bayXayDungPrimary",
       category: "xay-to"
     },
@@ -195,93 +195,113 @@ window.CATALOG_DATA = {
   products: [
     {
       id: "BXD-X01",
-      name: "Bay inox 20cm",
+      name: "Bay xây X01",
       code: "Mã SP: BXD-X01",
       price: 89000,
       category: "xay-to",
       group: "bay-xay-dung",
-      subtype: "can-go",
-      assetId: "bayInox20A"
+      subtype: "chuyen-xay",
+      filterTags: ["can-go", "chuyen-xay"],
+      assetId: "bayX01"
     },
     {
       id: "BXD-X02",
-      name: "Bay inox 22cm",
+      name: "Bay xây X02",
       code: "Mã SP: BXD-X02",
       price: 99000,
       category: "xay-to",
       group: "bay-xay-dung",
-      subtype: "can-go",
-      assetId: "bayInox22A"
+      subtype: "chuyen-xay",
+      filterTags: ["can-go", "chuyen-xay"],
+      assetId: "bayX02"
     },
     {
       id: "BXD-X03",
-      name: "Bay inox 20cm",
+      name: "Bay xây X03",
       code: "Mã SP: BXD-X03",
       price: 89000,
       category: "xay-to",
       group: "bay-xay-dung",
-      subtype: "can-tre",
-      assetId: "bayInox20A"
+      subtype: "chuyen-xay",
+      filterTags: ["can-go", "chuyen-xay"],
+      assetId: "bayX03"
     },
     {
       id: "BXD-X04",
-      name: "Bay inox 22cm",
+      name: "Bay xây X04",
       code: "Mã SP: BXD-X04",
       price: 99000,
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "chuyen-xay",
-      assetId: "bayInox22A"
+      filterTags: ["can-go", "chuyen-xay"],
+      assetId: "bayX04"
     },
     {
       id: "BXD-X05",
-      name: "Bay inox 20cm",
+      name: "Bay xây X05",
       code: "Mã SP: BXD-X05",
       price: 89000,
       category: "xay-to",
       group: "bay-xay-dung",
-      subtype: "chuyen-to",
-      assetId: "bayInox20A"
+      subtype: "chuyen-xay",
+      filterTags: ["can-go", "chuyen-xay"],
+      assetId: "bayX05"
     },
     {
       id: "BXD-X06",
-      name: "Bay inox 22cm",
+      name: "Bay xây X06",
       code: "Mã SP: BXD-X06",
       price: 99000,
       category: "xay-to",
       group: "bay-xay-dung",
-      subtype: "lien-khoi",
-      assetId: "bayInox22A"
+      subtype: "chuyen-xay",
+      filterTags: ["can-go", "chuyen-xay"],
+      assetId: "bayX06"
     },
     {
-      id: "BXD-T01",
-      name: "Bay thép 20cm",
-      code: "Mã SP: BXD-T01",
-      price: 79000,
-      category: "xay-to",
-      group: "bay-xay-dung",
-      subtype: "vua-xay-va-to",
-      assetId: "bayThep20"
-    },
-    {
-      id: "KCB-01",
-      name: "Ke cân bằng",
-      code: "Mã SP: KCB-01",
-      price: 45000,
-      category: "op-lat",
-      group: "ke-can-bang",
-      subtype: "combo-bay-cac-loai",
-      assetId: "keCanBang"
-    },
-    {
-      id: "BKH-60",
-      name: "Bàn kéo hồ 60cm",
-      code: "Mã SP: BKH-60",
-      price: 199000,
+      id: "BXD-X07",
+      name: "Bay xây X07",
+      code: "Mã SP: BXD-X07",
+      price: 109000,
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "chuyen-xay",
-      assetId: "banKeoHo60"
+      filterTags: ["can-tre", "chuyen-xay"],
+      assetId: "bayX07"
+    },
+    {
+      id: "BXD-X08",
+      name: "Bay xây X08",
+      code: "Mã SP: BXD-X08",
+      price: 109000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "chuyen-xay",
+      filterTags: ["can-go", "chuyen-xay"],
+      assetId: "bayX08"
+    },
+    {
+      id: "BXD-X09",
+      name: "Bay xây X09",
+      code: "Mã SP: BXD-X09",
+      price: 119000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "chuyen-xay",
+      filterTags: ["can-go", "chuyen-xay"],
+      assetId: "bayX09"
+    },
+    {
+      id: "BXD-X10",
+      name: "Bay xây X10",
+      code: "Mã SP: BXD-X10",
+      price: 129000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "chuyen-xay",
+      filterTags: ["can-go", "chuyen-xay"],
+      assetId: "bayX10"
     }
   ],
   filterOptions: [
@@ -291,9 +311,7 @@ window.CATALOG_DATA = {
     { id: "chuyen-xay", label: "Bay chuyên xây" },
     { id: "chuyen-to", label: "Bay chuyên tô" },
     { id: "vua-xay-va-to", label: "Bay vừa xây và tô" },
-    { id: "bay-chi", label: "Bay chỉ" },
-    { id: "lien-khoi", label: "Bay liền khối" },
-    { id: "combo-bay-cac-loai", label: "Combo Bay các loại" }
+    { id: "bay-chi", label: "Bay chỉ" }
   ]
 };
 

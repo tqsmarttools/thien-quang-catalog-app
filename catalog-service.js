@@ -25,10 +25,10 @@ window.CATALOG_SERVICE = {
       .filter((product) => {
         const categoryMatch = product.category === selectedCategory;
         const groupMatch = product.group === selectedGroup;
-        const filterMatch = activeFilter === "all" ? true : product.subtype === activeFilter;
+        const filterTags = product.filterTags || [product.subtype];
+        const filterMatch = activeFilter === "all" ? true : filterTags.includes(activeFilter);
         return categoryMatch && groupMatch && filterMatch;
-      })
-      .slice(0, 6);
+      });
   },
 
   currentFilterLabel(filterOptions, activeFilter) {

@@ -198,6 +198,17 @@
     return SERVICE.currentFilterLabel(filterOptions, state.activeFilter);
   }
 
+  function availableFilterOptions() {
+    const availableTags = new Set(
+      products
+        .filter((product) => product.category === state.selectedCategory && product.group === state.selectedGroup)
+        .flatMap((product) => product.filterTags || [product.subtype])
+        .filter(Boolean)
+    );
+
+    return filterOptions.filter((option) => option.id === "all" || availableTags.has(option.id));
+  }
+
   function buildZaloMessage() {
     return SERVICE.buildZaloMessage(
       MESSAGE_TEMPLATE,
@@ -291,6 +302,9 @@
     const sourceScreen = state.currentScreen;
     state.selectedCategory = categoryId;
     state.selectedGroup = groupId;
+    state.activeFilter = "all";
+    state.draftFilter = "all";
+    state.isFilterOpen = false;
     state.currentScreen = "product-list";
     trackEvent("open_product_group", {
       category_id: category?.id,
@@ -693,7 +707,7 @@
           </div>
           <div class="sheet-section-label">Loại bay</div>
           <div class="filter-options">
-            ${filterOptions
+            ${availableFilterOptions()
               .map(
                 (option) => `
                   <button class="filter-option ${state.draftFilter === option.id ? "active" : ""}" type="button" data-filter="${option.id}">

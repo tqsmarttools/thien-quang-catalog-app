@@ -1,17 +1,17 @@
-const CACHE_NAME = "tq-catalog-v23";
+const CACHE_NAME = "tq-catalog-v25";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=20260708-ga4",
-  "./assets.js?v=20260708-ga4",
-  "./app.js?v=20260708-ga4",
-  "./data.js?v=20260708-ga4",
-  "./storage.js?v=20260708-ga4",
-  "./catalog-service.js?v=20260708-ga4",
-  "./api.js?v=20260708-ga4",
-  "./message-template.js?v=20260708-ga4",
-  "./analytics.js?v=20260708-ga4",
-  "./manifest.webmanifest?v=20260708-ga4",
+  "./styles.css?v=20260710-bay-xay-v2",
+  "./assets.js?v=20260710-bay-xay-v2",
+  "./app.js?v=20260710-bay-xay-v2",
+  "./data.js?v=20260710-bay-xay-v2",
+  "./storage.js?v=20260710-bay-xay-v2",
+  "./catalog-service.js?v=20260710-bay-xay-v2",
+  "./api.js?v=20260710-bay-xay-v2",
+  "./message-template.js?v=20260710-bay-xay-v2",
+  "./analytics.js?v=20260710-bay-xay-v2",
+  "./manifest.webmanifest?v=20260710-bay-xay-v2",
   "./public/assets/logo-thien-quang.png",
   "./public/assets/icon-app.svg",
   "./public/assets/icon-app-192.png",
@@ -27,7 +27,17 @@ const ASSETS = [
   "./public/assets/icon-plus.svg",
   "./public/assets/icon-check.svg",
   "./public/assets/icon-minus.svg",
-  "./public/assets/icon-dots.svg"
+  "./public/assets/icon-dots.svg",
+  "./public/assets/products/bay-x01.jpg",
+  "./public/assets/products/bay-x02.jpg",
+  "./public/assets/products/bay-x03-clean.png",
+  "./public/assets/products/bay-x04.jpg",
+  "./public/assets/products/bay-x05.jpg",
+  "./public/assets/products/bay-x06.jpg",
+  "./public/assets/products/bay-x07.jpg",
+  "./public/assets/products/bay-x08.jpg",
+  "./public/assets/products/bay-x09.jpg",
+  "./public/assets/products/bay-x10.jpg"
 ];
 
 self.addEventListener("install", (event) => {

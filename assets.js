@@ -8,7 +8,17 @@ window.CATALOG_ASSETS = {
     thachCao: "public/assets/ban-keo-ho-60.png"
   },
   products: {
-    bayXayDungPrimary: "public/assets/home-bay-xay-dung.jpg",
+    bayXayDungPrimary: "public/assets/products/bay-x01.jpg",
+    bayX01: "public/assets/products/bay-x01.jpg",
+    bayX02: "public/assets/products/bay-x02.jpg",
+    bayX03: "public/assets/products/bay-x03-clean.png",
+    bayX04: "public/assets/products/bay-x04.jpg",
+    bayX05: "public/assets/products/bay-x05.jpg",
+    bayX06: "public/assets/products/bay-x06.jpg",
+    bayX07: "public/assets/products/bay-x07.jpg",
+    bayX08: "public/assets/products/bay-x08.jpg",
+    bayX09: "public/assets/products/bay-x09.jpg",
+    bayX10: "public/assets/products/bay-x10.jpg",
     bayInox20A: "public/assets/home-bay-xay-dung.jpg",
     bayInox22A: "public/assets/home-bay-xay-dung.jpg",
     bayThep20: "public/assets/bay-thep-20.png",

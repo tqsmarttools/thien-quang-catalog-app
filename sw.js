@@ -1,8 +1,8 @@
-const CACHE_NAME = "tq-catalog-v27";
+const CACHE_NAME = "tq-catalog-v28";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=20260710-spec-details",
+  "./styles.css?v=20260710-card-spec-line",
   "./assets.js?v=20260710-spec-details",
   "./app.js?v=20260710-spec-details",
   "./data.js?v=20260710-spec-details",

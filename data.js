@@ -196,7 +196,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-X01",
       name: "Bay xây X01",
-      code: "Mã SP: BXD-X01",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 89000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -207,7 +207,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-X02",
       name: "Bay xây X02",
-      code: "Mã SP: BXD-X02",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 99000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -218,7 +218,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-X03",
       name: "Bay xây X03",
-      code: "Mã SP: BXD-X03",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 89000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -229,7 +229,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-X04",
       name: "Bay xây X04",
-      code: "Mã SP: BXD-X04",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 99000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -240,7 +240,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-X05",
       name: "Bay xây X05",
-      code: "Mã SP: BXD-X05",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 89000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -251,7 +251,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-X06",
       name: "Bay xây X06",
-      code: "Mã SP: BXD-X06",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 99000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -262,7 +262,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-X07",
       name: "Bay xây X07",
-      code: "Mã SP: BXD-X07",
+      code: "KT: 9 × 18 cm - Cán tre",
       price: 109000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -273,7 +273,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-X08",
       name: "Bay xây X08",
-      code: "Mã SP: BXD-X08",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 109000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -284,7 +284,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-X09",
       name: "Bay xây X09",
-      code: "Mã SP: BXD-X09",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 119000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -295,7 +295,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-X10",
       name: "Bay xây X10",
-      code: "Mã SP: BXD-X10",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 129000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -306,7 +306,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-XT01",
       name: "Bay xây tô XT01",
-      code: "Mã SP: BXD-XT01",
+      code: "KT: 10 × 19 cm - Cán gỗ",
       price: 119000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -317,7 +317,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-XT02",
       name: "Bay xây tô XT02",
-      code: "Mã SP: BXD-XT02",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 129000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -328,7 +328,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-XT03",
       name: "Bay xây tô XT03",
-      code: "Mã SP: BXD-XT03",
+      code: "KT: 10 × 19 cm - Cán gỗ",
       price: 119000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -339,7 +339,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-XT04",
       name: "Bay xây tô XT04",
-      code: "Mã SP: BXD-XT04",
+      code: "KT: 9.5 × 18 cm - Cán tre",
       price: 129000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -350,7 +350,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-XT05",
       name: "Bay xây tô XT05",
-      code: "Mã SP: BXD-XT05",
+      code: "KT: 8 × 16 cm - Cán tre",
       price: 119000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -361,7 +361,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-XT06",
       name: "Bay xây tô XT06",
-      code: "Mã SP: BXD-XT06",
+      code: "KT: 9.5 × 18 cm - Cán tre",
       price: 129000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -372,7 +372,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-XT07",
       name: "Bay xây tô XT07",
-      code: "Mã SP: BXD-XT07",
+      code: "KT: 8 × 16 cm - Cán tre",
       price: 119000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -383,7 +383,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-XT08",
       name: "Bay xây tô XT08",
-      code: "Mã SP: BXD-XT08",
+      code: "KT: 9 × 18 cm - Cán tre",
       price: 109000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -394,7 +394,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-T01",
       name: "Bay tô T01",
-      code: "Mã SP: BXD-T01",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 79000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -405,7 +405,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-T02",
       name: "Bay tô T02",
-      code: "Mã SP: BXD-T02",
+      code: "KT: 9 × 17 cm - Cán gỗ",
       price: 89000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -416,7 +416,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-T03",
       name: "Bay tô T03",
-      code: "Mã SP: BXD-T03",
+      code: "KT: 9 × 18 cm - Cán tre",
       price: 89000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -427,7 +427,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-T04",
       name: "Bay tô T04",
-      code: "Mã SP: BXD-T04",
+      code: "KT: 6 × 13 cm - Cán tre",
       price: 99000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -438,7 +438,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-C01",
       name: "Bay chỉ C01",
-      code: "Mã SP: BXD-C01",
+      code: "KT: 5 × 15 cm - Cán gỗ",
       price: 49000,
       category: "xay-to",
       group: "bay-xay-dung",
@@ -449,7 +449,7 @@ window.CATALOG_DATA = {
     {
       id: "BXD-C02",
       name: "Bay chỉ C02",
-      code: "Mã SP: BXD-C02",
+      code: "KT: 4 × 11 cm - Cán tre",
       price: 59000,
       category: "xay-to",
       group: "bay-xay-dung",

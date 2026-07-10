@@ -708,7 +708,8 @@ body {
 
 .product-code {
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 1.25;
   color: #69736c;
 }
 

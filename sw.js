@@ -1,17 +1,17 @@
-const CACHE_NAME = "tq-catalog-v25";
+const CACHE_NAME = "tq-catalog-v26";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=20260710-bay-xay-v2",
-  "./assets.js?v=20260710-bay-xay-v2",
-  "./app.js?v=20260710-bay-xay-v2",
-  "./data.js?v=20260710-bay-xay-v2",
-  "./storage.js?v=20260710-bay-xay-v2",
-  "./catalog-service.js?v=20260710-bay-xay-v2",
-  "./api.js?v=20260710-bay-xay-v2",
-  "./message-template.js?v=20260710-bay-xay-v2",
-  "./analytics.js?v=20260710-bay-xay-v2",
-  "./manifest.webmanifest?v=20260710-bay-xay-v2",
+  "./styles.css?v=20260710-bay-all",
+  "./assets.js?v=20260710-bay-all",
+  "./app.js?v=20260710-bay-all",
+  "./data.js?v=20260710-bay-all",
+  "./storage.js?v=20260710-bay-all",
+  "./catalog-service.js?v=20260710-bay-all",
+  "./api.js?v=20260710-bay-all",
+  "./message-template.js?v=20260710-bay-all",
+  "./analytics.js?v=20260710-bay-all",
+  "./manifest.webmanifest?v=20260710-bay-all",
   "./public/assets/logo-thien-quang.png",
   "./public/assets/icon-app.svg",
   "./public/assets/icon-app-192.png",
@@ -37,7 +37,21 @@ const ASSETS = [
   "./public/assets/products/bay-x07.jpg",
   "./public/assets/products/bay-x08.jpg",
   "./public/assets/products/bay-x09.jpg",
-  "./public/assets/products/bay-x10.jpg"
+  "./public/assets/products/bay-x10.jpg",
+  "./public/assets/products/bay-xt01.jpg",
+  "./public/assets/products/bay-xt02.jpg",
+  "./public/assets/products/bay-xt03.jpg",
+  "./public/assets/products/bay-xt04.jpg",
+  "./public/assets/products/bay-xt05.jpg",
+  "./public/assets/products/bay-xt06.jpg",
+  "./public/assets/products/bay-xt07.jpg",
+  "./public/assets/products/bay-xt08.jpg",
+  "./public/assets/products/bay-t01.jpg",
+  "./public/assets/products/bay-t02.jpg",
+  "./public/assets/products/bay-t03.jpg",
+  "./public/assets/products/bay-t04.jpg",
+  "./public/assets/products/bay-c01.jpg",
+  "./public/assets/products/bay-c02.jpg"
 ];
 
 self.addEventListener("install", (event) => {

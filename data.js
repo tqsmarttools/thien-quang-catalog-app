@@ -40,7 +40,7 @@ window.CATALOG_DATA = {
     {
       id: "bay-xay-dung",
       name: "Bay xây dựng",
-      count: "10 sản phẩm",
+      count: "24 sản phẩm",
       assetId: "bayXayDungPrimary",
       category: "xay-to"
     },
@@ -302,6 +302,160 @@ window.CATALOG_DATA = {
       subtype: "chuyen-xay",
       filterTags: ["can-go", "chuyen-xay"],
       assetId: "bayX10"
+    },
+    {
+      id: "BXD-XT01",
+      name: "Bay xây tô XT01",
+      code: "Mã SP: BXD-XT01",
+      price: 119000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "vua-xay-va-to",
+      filterTags: ["can-go", "vua-xay-va-to"],
+      assetId: "bayXT01"
+    },
+    {
+      id: "BXD-XT02",
+      name: "Bay xây tô XT02",
+      code: "Mã SP: BXD-XT02",
+      price: 129000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "vua-xay-va-to",
+      filterTags: ["can-go", "vua-xay-va-to"],
+      assetId: "bayXT02"
+    },
+    {
+      id: "BXD-XT03",
+      name: "Bay xây tô XT03",
+      code: "Mã SP: BXD-XT03",
+      price: 119000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "vua-xay-va-to",
+      filterTags: ["can-go", "vua-xay-va-to"],
+      assetId: "bayXT03"
+    },
+    {
+      id: "BXD-XT04",
+      name: "Bay xây tô XT04",
+      code: "Mã SP: BXD-XT04",
+      price: 129000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "vua-xay-va-to",
+      filterTags: ["can-tre", "vua-xay-va-to"],
+      assetId: "bayXT04"
+    },
+    {
+      id: "BXD-XT05",
+      name: "Bay xây tô XT05",
+      code: "Mã SP: BXD-XT05",
+      price: 119000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "vua-xay-va-to",
+      filterTags: ["can-tre", "vua-xay-va-to"],
+      assetId: "bayXT05"
+    },
+    {
+      id: "BXD-XT06",
+      name: "Bay xây tô XT06",
+      code: "Mã SP: BXD-XT06",
+      price: 129000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "vua-xay-va-to",
+      filterTags: ["can-tre", "vua-xay-va-to"],
+      assetId: "bayXT06"
+    },
+    {
+      id: "BXD-XT07",
+      name: "Bay xây tô XT07",
+      code: "Mã SP: BXD-XT07",
+      price: 119000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "vua-xay-va-to",
+      filterTags: ["can-tre", "vua-xay-va-to"],
+      assetId: "bayXT07"
+    },
+    {
+      id: "BXD-XT08",
+      name: "Bay xây tô XT08",
+      code: "Mã SP: BXD-XT08",
+      price: 109000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "vua-xay-va-to",
+      filterTags: ["can-tre", "vua-xay-va-to"],
+      assetId: "bayXT08"
+    },
+    {
+      id: "BXD-T01",
+      name: "Bay tô T01",
+      code: "Mã SP: BXD-T01",
+      price: 79000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "chuyen-to",
+      filterTags: ["can-go", "chuyen-to"],
+      assetId: "bayT01"
+    },
+    {
+      id: "BXD-T02",
+      name: "Bay tô T02",
+      code: "Mã SP: BXD-T02",
+      price: 89000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "chuyen-to",
+      filterTags: ["can-go", "chuyen-to"],
+      assetId: "bayT02"
+    },
+    {
+      id: "BXD-T03",
+      name: "Bay tô T03",
+      code: "Mã SP: BXD-T03",
+      price: 89000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "chuyen-to",
+      filterTags: ["can-tre", "chuyen-to"],
+      assetId: "bayT03"
+    },
+    {
+      id: "BXD-T04",
+      name: "Bay tô T04",
+      code: "Mã SP: BXD-T04",
+      price: 99000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "chuyen-to",
+      filterTags: ["can-tre", "chuyen-to"],
+      assetId: "bayT04"
+    },
+    {
+      id: "BXD-C01",
+      name: "Bay chỉ C01",
+      code: "Mã SP: BXD-C01",
+      price: 49000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "bay-chi",
+      filterTags: ["can-go", "bay-chi"],
+      assetId: "bayC01"
+    },
+    {
+      id: "BXD-C02",
+      name: "Bay chỉ C02",
+      code: "Mã SP: BXD-C02",
+      price: 59000,
+      category: "xay-to",
+      group: "bay-xay-dung",
+      subtype: "bay-chi",
+      filterTags: ["can-tre", "bay-chi"],
+      assetId: "bayC02"
     }
   ],
   filterOptions: [

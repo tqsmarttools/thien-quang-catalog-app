@@ -1,14 +1,14 @@
-const CACHE_NAME = "tq-catalog-v35";
+const CACHE_NAME = "tq-catalog-v36";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css?v=20260711-filter-grid",
-  "./assets.js?v=20260710-spec-details",
-  "./app.js?v=20260711-future-filters",
-  "./data.js?v=20260712-group-cover-v2",
+  "./assets.js?v=20260712-bcr-catalog",
+  "./app.js?v=20260712-bcr-catalog",
+  "./data.js?v=20260712-bcr-catalog",
   "./storage.js?v=20260712-home-link",
   "./catalog-service.js?v=20260710-spec-details",
-  "./api.js?v=20260710-spec-details",
+  "./api.js?v=20260712-bcr-catalog",
   "./message-template.js?v=20260710-spec-details",
   "./analytics.js?v=20260710-spec-details",
   "./manifest.webmanifest?v=20260710-spec-details",
@@ -51,7 +51,17 @@ const ASSETS = [
   "./public/assets/products/bay-t03.jpg",
   "./public/assets/products/bay-t04.jpg",
   "./public/assets/products/bay-c01.jpg",
-  "./public/assets/products/bay-c02.jpg"
+  "./public/assets/products/bay-c02.jpg",
+  "./public/assets/products/bcr-v15.jpg",
+  "./public/assets/products/bcr-v20.jpg",
+  "./public/assets/products/bcr-v25.jpg",
+  "./public/assets/products/bcr-v30.jpg",
+  "./public/assets/products/bcr-v40.jpg",
+  "./public/assets/products/bcr-v50.jpg",
+  "./public/assets/products/bcr-t20.jpg",
+  "./public/assets/products/bcr-t25.jpg",
+  "./public/assets/products/bcr-t30.jpg",
+  "./public/assets/products/bcr-th.jpg"
 ];
 
 self.addEventListener("install", (event) => {

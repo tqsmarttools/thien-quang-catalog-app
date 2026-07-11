@@ -47,7 +47,7 @@ window.CATALOG_DATA = {
     {
       id: "bay-cat-ron",
       name: "Bay cắt ron",
-      count: "60+ sản phẩm",
+      count: "20 sản phẩm",
       assetId: "bayInox20A",
       category: "xay-to"
     },
@@ -468,11 +468,54 @@ window.CATALOG_DATA = {
     { id: "bay-chi", label: "Bay chỉ" },
     { id: "bay-lien-khoi", label: "Bay liền khối" },
     { id: "combo-bay", label: "Combo bay các loại" }
-  ]
+  ],
+  groupFilters: {
+    "bay-cat-ron": {
+      label: "Chất liệu bay cắt ron",
+      options: [
+        { id: "all", label: "Tất cả" },
+        { id: "bcr-inox-430", label: "Inox 430" },
+        { id: "bcr-steel-coated", label: "Thép sơn tĩnh điện" }
+      ]
+    }
+  }
 };
 
 (() => {
   const data = window.CATALOG_DATA;
+  const bcrTypes = [
+    { suffix: "V15", detail: "KT: 15 × 10 cm", assetId: "bcrV15" },
+    { suffix: "V20", detail: "KT: 20 × 10 cm", assetId: "bcrV20" },
+    { suffix: "V25", detail: "KT: 25 × 10 cm", assetId: "bcrV25" },
+    { suffix: "V30", detail: "KT: 30 × 10 cm", assetId: "bcrV30" },
+    { suffix: "V40", detail: "KT: 40 × 10 cm", assetId: "bcrV40" },
+    { suffix: "V50", detail: "KT: 50 × 10 cm", assetId: "bcrV50" },
+    { suffix: "T20", detail: "KT: 20 × 10 cm", assetId: "bcrT20" },
+    { suffix: "T25", detail: "KT: 25 × 10 cm", assetId: "bcrT25" },
+    { suffix: "T30", detail: "KT: 30 × 10 cm", assetId: "bcrT30" },
+    { suffix: "TH", detail: "Dáng hình thang", assetId: "bcrTh" }
+  ];
+  const bcrMaterials = [
+    { filterId: "bcr-inox-430", label: "Inox 430", skuPrefix: "BCR-I-", price: 75000 },
+    { filterId: "bcr-steel-coated", label: "Thép sơn tĩnh điện", skuPrefix: "BCR-", price: 65000 }
+  ];
+
+  data.products.push(
+    ...bcrMaterials.flatMap((material) =>
+      bcrTypes.map((type) => ({
+        id: `${material.skuPrefix}${type.suffix}`,
+        name: `Bay cắt ron ${type.suffix}`,
+        code: `${type.detail} - ${material.label}`,
+        price: material.price,
+        category: "xay-to",
+        group: "bay-cat-ron",
+        subtype: material.filterId,
+        filterTags: [material.filterId],
+        assetId: type.assetId
+      }))
+    )
+  );
+
   const filterCycle = ["can-go", "can-tre", "chuyen-xay", "chuyen-to", "vua-xay-va-to", "bay-chi"];
   const categoryPriceBase = {
     "xay-to": 69000,

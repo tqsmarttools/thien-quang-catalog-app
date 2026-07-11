@@ -24,7 +24,7 @@ window.CATALOG_API = {
     return {
       products,
       activeFilter: params.activeFilter,
-      activeFilterLabel: service.currentFilterLabel(data.filterOptions, params.activeFilter),
+      activeFilterLabel: service.currentFilterLabel(params.filterOptions || data.filterOptions, params.activeFilter),
       totalCountLabel:
         params.activeFilter === "all"
           ? currentGroup?.count || `${products.length} sản phẩm`

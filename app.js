@@ -5,7 +5,8 @@
     categories,
     productGroups,
     products,
-    filterOptions
+    filterOptions,
+    groupFilters
   } = window.CATALOG_DATA;
   const ASSETS = window.CATALOG_ASSETS;
   const STORAGE = window.CATALOG_STORAGE;
@@ -195,10 +196,13 @@
   }
 
   function currentFilterLabel() {
-    return SERVICE.currentFilterLabel(filterOptions, state.activeFilter);
+    return SERVICE.currentFilterLabel(availableFilterOptions(), state.activeFilter);
   }
 
   function availableFilterOptions() {
+    const groupFilter = groupFilters[state.selectedGroup];
+    if (groupFilter) return groupFilter.options;
+
     if (state.selectedGroup === "bay-xay-dung") {
       return filterOptions;
     }
@@ -625,10 +629,12 @@
   }
 
   async function renderProductList() {
+    const productFilterOptions = availableFilterOptions();
     const listData = await API.getProductListData(window.CATALOG_DATA, SERVICE, {
       selectedCategory: state.selectedCategory,
       selectedGroup: state.selectedGroup,
-      activeFilter: state.activeFilter
+      activeFilter: state.activeFilter,
+      filterOptions: productFilterOptions
     });
     const grid = listData.products;
     const currentGroup = getGroupById(state.selectedGroup);
@@ -699,6 +705,7 @@
   }
 
   function renderFilterSheet() {
+    const groupFilter = groupFilters[state.selectedGroup];
     return `
       <div class="sheet-overlay ${state.isFilterOpen ? "" : "hidden"}" data-overlay>
         <div class="filter-sheet" role="dialog" aria-label="Bộ lọc sản phẩm">
@@ -709,7 +716,7 @@
               <img src="${ASSETS.icons.close}" alt="" />
             </button>
           </div>
-          <div class="sheet-section-label">Loại bay</div>
+          <div class="sheet-section-label">${groupFilter ? groupFilter.label : "Loại sản phẩm"}</div>
           <div class="filter-options">
             ${availableFilterOptions()
               .map(

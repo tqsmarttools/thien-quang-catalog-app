@@ -11,8 +11,9 @@ window.CATALOG_STORAGE = {
 
       return {
         ...fallbackState,
-        currentScreen: getScreenFromHash(),
-        ...JSON.parse(raw)
+        ...JSON.parse(raw),
+        // A shared link should always open the screen requested in its URL.
+        currentScreen: getScreenFromHash()
       };
     } catch (error) {
       console.warn("Failed to load catalog state", error);

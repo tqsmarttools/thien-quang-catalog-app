@@ -484,16 +484,16 @@ window.CATALOG_DATA = {
 (() => {
   const data = window.CATALOG_DATA;
   const bcrTypes = [
-    { suffix: "V15", detail: "KT: 15 × 10 cm", assetId: "bcrV15" },
-    { suffix: "V20", detail: "KT: 20 × 10 cm", assetId: "bcrV20" },
-    { suffix: "V25", detail: "KT: 25 × 10 cm", assetId: "bcrV25" },
-    { suffix: "V30", detail: "KT: 30 × 10 cm", assetId: "bcrV30" },
-    { suffix: "V40", detail: "KT: 40 × 10 cm", assetId: "bcrV40" },
-    { suffix: "V50", detail: "KT: 50 × 10 cm", assetId: "bcrV50" },
-    { suffix: "T20", detail: "KT: 20 × 10 cm", assetId: "bcrT20" },
-    { suffix: "T25", detail: "KT: 25 × 10 cm", assetId: "bcrT25" },
-    { suffix: "T30", detail: "KT: 30 × 10 cm", assetId: "bcrT30" },
-    { suffix: "TH", detail: "Dáng hình thang", assetId: "bcrTh" }
+    { suffix: "V15", detail: "KT: 15 × 10 cm", assetId: "bcrV15", steelAssetId: "bcrSteelV15" },
+    { suffix: "V20", detail: "KT: 20 × 10 cm", assetId: "bcrV20", steelAssetId: "bcrSteelV20" },
+    { suffix: "V25", detail: "KT: 25 × 10 cm", assetId: "bcrV25", steelAssetId: "bcrSteelV25" },
+    { suffix: "V30", detail: "KT: 30 × 10 cm", assetId: "bcrV30", steelAssetId: "bcrSteelV30" },
+    { suffix: "V40", detail: "KT: 40 × 10 cm", assetId: "bcrV40", steelAssetId: "bcrSteelV40" },
+    { suffix: "V50", detail: "KT: 50 × 10 cm", assetId: "bcrV50", steelAssetId: "bcrSteelV50" },
+    { suffix: "T20", detail: "KT: 20 × 10 cm", assetId: "bcrT20", steelAssetId: "bcrSteelT20" },
+    { suffix: "T25", detail: "KT: 25 × 10 cm", assetId: "bcrT25", steelAssetId: "bcrSteelT25" },
+    { suffix: "T30", detail: "KT: 30 × 10 cm", assetId: "bcrT30", steelAssetId: "bcrSteelT30" },
+    { suffix: "TH", detail: "Dáng hình thang", assetId: "bcrTh", steelAssetId: "bcrTh" }
   ];
   const bcrMaterials = [
     { filterId: "bcr-inox-430", label: "Inox 430", skuPrefix: "BCR-I-", price: 75000 },
@@ -511,7 +511,7 @@ window.CATALOG_DATA = {
         group: "bay-cat-ron",
         subtype: material.filterId,
         filterTags: [material.filterId],
-        assetId: type.assetId
+        assetId: material.filterId === "bcr-steel-coated" ? type.steelAssetId : type.assetId
       }))
     )
   );

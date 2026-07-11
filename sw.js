@@ -1,14 +1,14 @@
-const CACHE_NAME = "tq-catalog-v36";
+const CACHE_NAME = "tq-catalog-v37";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css?v=20260711-filter-grid",
-  "./assets.js?v=20260712-bcr-catalog",
-  "./app.js?v=20260712-bcr-catalog",
-  "./data.js?v=20260712-bcr-catalog",
+  "./assets.js?v=20260712-bcr-material-images",
+  "./app.js?v=20260712-bcr-material-images",
+  "./data.js?v=20260712-bcr-material-images",
   "./storage.js?v=20260712-home-link",
   "./catalog-service.js?v=20260710-spec-details",
-  "./api.js?v=20260712-bcr-catalog",
+  "./api.js?v=20260712-bcr-material-images",
   "./message-template.js?v=20260710-spec-details",
   "./analytics.js?v=20260710-spec-details",
   "./manifest.webmanifest?v=20260710-spec-details",
@@ -61,7 +61,16 @@ const ASSETS = [
   "./public/assets/products/bcr-t20.jpg",
   "./public/assets/products/bcr-t25.jpg",
   "./public/assets/products/bcr-t30.jpg",
-  "./public/assets/products/bcr-th.jpg"
+  "./public/assets/products/bcr-th.jpg",
+  "./public/assets/products/bcr-steel-v15.jpg",
+  "./public/assets/products/bcr-steel-v20.jpg",
+  "./public/assets/products/bcr-steel-v25.jpg",
+  "./public/assets/products/bcr-steel-v30.jpg",
+  "./public/assets/products/bcr-steel-v40.jpg",
+  "./public/assets/products/bcr-steel-v50.jpg",
+  "./public/assets/products/bcr-steel-t20.jpg",
+  "./public/assets/products/bcr-steel-t25.jpg",
+  "./public/assets/products/bcr-steel-t30.jpg"
 ];
 
 self.addEventListener("install", (event) => {

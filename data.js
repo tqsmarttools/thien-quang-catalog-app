@@ -41,7 +41,7 @@ window.CATALOG_DATA = {
       id: "bay-xay-dung",
       name: "Bay xây dựng",
       count: "24 sản phẩm",
-      assetId: "bayXayDungPrimary",
+      assetId: "bayInox20A",
       category: "xay-to"
     },
     {

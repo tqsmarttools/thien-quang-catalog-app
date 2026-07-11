@@ -1,11 +1,11 @@
-const CACHE_NAME = "tq-catalog-v33";
+const CACHE_NAME = "tq-catalog-v34";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css?v=20260711-filter-grid",
   "./assets.js?v=20260710-spec-details",
   "./app.js?v=20260711-future-filters",
-  "./data.js?v=20260712-group-cover",
+  "./data.js?v=20260712-group-cover-v2",
   "./storage.js?v=20260710-spec-details",
   "./catalog-service.js?v=20260710-spec-details",
   "./api.js?v=20260710-spec-details",
@@ -74,16 +74,33 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+function cacheResponse(request, response) {
+  if (!response || response.status !== 200) return response;
+  const clone = response.clone();
+  caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+  return response;
+}
+
+function cacheFirst(request) {
+  return caches.match(request).then((cached) => cached || fetch(request).then((response) => cacheResponse(request, response)));
+}
+
+function networkFirst(request) {
+  return fetch(request)
+    .then((response) => cacheResponse(request, response))
+    .catch(() => caches.match(request));
+}
+
 self.addEventListener("fetch", (event) => {
+  if (event.request.method !== "GET") return;
+
+  const isAppCode =
+    event.request.mode === "navigate" ||
+    ["document", "script", "style", "manifest"].includes(event.request.destination);
+
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((response) => {
-        if (!response || response.status !== 200 || event.request.method !== "GET") return response;
-        const clone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-        return response;
-      });
-    })
+    (isAppCode ? networkFirst(event.request) : cacheFirst(event.request)).then(
+      (response) => response || caches.match("./index.html")
+    )
   );
 });

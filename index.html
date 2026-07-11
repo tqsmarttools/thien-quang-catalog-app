@@ -20,7 +20,7 @@
       </div>
     </div>
     <script src="./assets.js?v=20260710-spec-details"></script>
-    <script src="./data.js?v=20260712-group-cover"></script>
+    <script src="./data.js?v=20260712-group-cover-v2"></script>
     <script src="./storage.js?v=20260710-spec-details"></script>
     <script src="./catalog-service.js?v=20260710-spec-details"></script>
     <script src="./api.js?v=20260710-spec-details"></script>
@@ -58,7 +58,9 @@
             return;
           }
 
-          navigator.serviceWorker.register("./sw.js").catch(function () {});
+          navigator.serviceWorker
+            .register("./sw.js?v=20260712-app-shell-refresh", { updateViaCache: "none" })
+            .catch(function () {});
         });
       })();
     </script>

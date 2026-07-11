@@ -199,6 +199,10 @@
   }
 
   function availableFilterOptions() {
+    if (state.selectedGroup === "bay-xay-dung") {
+      return filterOptions;
+    }
+
     const availableTags = new Set(
       products
         .filter((product) => product.category === state.selectedCategory && product.group === state.selectedGroup)

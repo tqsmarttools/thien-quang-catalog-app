@@ -1,4 +1,4 @@
-const CACHE_NAME = "tq-catalog-v30";
+const CACHE_NAME = "tq-catalog-v31";
 const ASSETS = [
   "./",
   "./index.html",

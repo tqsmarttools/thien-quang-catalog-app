@@ -465,13 +465,15 @@ window.CATALOG_DATA = {
     { id: "chuyen-xay", label: "Bay chuyên xây" },
     { id: "chuyen-to", label: "Bay chuyên tô" },
     { id: "vua-xay-va-to", label: "Bay vừa xây và tô" },
-    { id: "bay-chi", label: "Bay chỉ" }
+    { id: "bay-chi", label: "Bay chỉ" },
+    { id: "bay-lien-khoi", label: "Bay liền khối" },
+    { id: "combo-bay", label: "Combo bay các loại" }
   ]
 };
 
 (() => {
   const data = window.CATALOG_DATA;
-  const filterCycle = data.filterOptions.filter((option) => option.id !== "all").map((option) => option.id);
+  const filterCycle = ["can-go", "can-tre", "chuyen-xay", "chuyen-to", "vua-xay-va-to", "bay-chi"];
   const categoryPriceBase = {
     "xay-to": 69000,
     "op-lat": 89000,
